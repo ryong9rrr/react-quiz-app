@@ -1,14 +1,17 @@
-import React, { useEffect, useState } from "react";
-import { quizApi } from "./apis";
+import React from "react";
+import { Route, Routes } from "react-router-dom";
+import { HomePage, QuizPage, ResultPage, CheckNotePage, NotFoundPage, PATH } from "./pages";
 
 function App() {
-  const [count, setCount] = useState(0);
-
-  useEffect(() => {
-    quizApi.createNewQuiz().then((data) => console.log(data));
-  });
-
-  return <div className="App" />;
+  return (
+    <Routes>
+      <Route path={PATH.HOME} element={<HomePage />} />
+      <Route path={PATH.QUIZ} element={<QuizPage />} />
+      <Route path={PATH.RESULT} element={<ResultPage />} />
+      <Route path={PATH.CHECK_NOTE} element={<CheckNotePage />} />
+      <Route path="*" element={<NotFoundPage />} />
+    </Routes>
+  );
 }
 
 export default App;

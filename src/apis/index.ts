@@ -1,1 +1,1 @@
-export * as quizApi from "./quiz-api";
+export * as quizApi from "./quizApi";
