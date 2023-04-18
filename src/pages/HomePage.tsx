@@ -3,7 +3,7 @@ import styled from "@emotion/styled";
 import { PALETTE } from "@/styles/theme";
 
 export default function HomePage() {
-  return <Container>홈페이지</Container>;
+  return <Container>HomePage</Container>;
 }
 
 const Container = styled.div`

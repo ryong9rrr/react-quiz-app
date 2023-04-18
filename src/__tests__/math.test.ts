@@ -1,5 +1,6 @@
 import { describe, it, expect } from "vitest";
-import { add } from "@/math";
+
+const add = (a: number, b: number) => a + b;
 
 describe("math test(sample)", () => {
   it("add", () => {

@@ -4,7 +4,7 @@ import styled from "@emotion/styled";
 export default function ResultPage() {
   return (
     <>
-      퀴즈 결과 페이지
+      ResultPage
       <ButtonContainer>
         <button>새로운 퀴즈 풀기</button>
       </ButtonContainer>
