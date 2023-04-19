@@ -19,6 +19,7 @@
   },
   "plugins": ["react", "@typescript-eslint"],
   "rules": {
+    "prefer-destructuring": "warn",
     "camelcase": "warn",
     "lines-between-class-members": "off",
     "no-underscore-dangle": "off",
@@ -28,7 +29,7 @@
     "import/prefer-default-export": "off",
     "import/no-unresolved": "off",
     "import/extensions": "off",
-    "import/no-extraneous-dependencies": "warn",
+    "import/no-extraneous-dependencies": "off",
     "react/jsx-filename-extension": ["warn", { "extensions": [".ts", ".tsx"] }],
     "react/button-has-type": "warn",
     "react/require-default-props": "warn",

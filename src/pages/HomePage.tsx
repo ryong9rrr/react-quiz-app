@@ -1,20 +1,51 @@
-import React from 'react'
+import React, { useState } from 'react'
 import styled from '@emotion/styled'
+import { useNavigate } from 'react-router-dom'
 
 import { PALETTE } from '@/styles/theme'
-import { fetchQuiz, useQuizDispatch, useQuizSelector } from '@/store/quizSlice'
 import Loading from '@/components/Loading'
 import Text from '@/components/Text'
 import Button from '@/components/Button'
+import { routeTable } from '@/routes/routeTable'
+import {
+  generateQuiz as genQuiz,
+  useQuizDispatch,
+  useQuizSelector,
+  initialize,
+} from '@/store/quizSlice'
 
 export default function HomePage() {
+  const [loading, setLoading] = useState(false)
+  const navigate = useNavigate()
   const dispatch = useQuizDispatch()
   const quiz = useQuizSelector()
 
-  const loading = quiz.status === 'loading'
+  const generateQuiz = async () => {
+    await dispatch(genQuiz())
+  }
 
-  const handleClickStart = () => {
-    dispatch(fetchQuiz())
+  const handleClickStart = async () => {
+    setLoading(true)
+    await generateQuiz()
+    setLoading(false)
+    navigate(routeTable.QUIZ.path)
+  }
+
+  const handleClickNewStart = () => {
+    dispatch(initialize())
+  }
+
+  const handleClickContinue = () => {
+    navigate(routeTable.QUIZ.path)
+  }
+
+  if (loading) {
+    return (
+      <Container>
+        <Loading />
+        <Text>퀴즈를 생성 중입니다...</Text>
+      </Container>
+    )
   }
 
   if (quiz.status === 'error') {
@@ -32,23 +63,30 @@ export default function HomePage() {
     )
   }
 
+  if (quiz.currentQuiz) {
+    return (
+      <Container>
+        <Text size="xlg" style={{ margin: '16px 0' }}>
+          이미 풀고 있는 퀴즈가 있습니다.
+        </Text>
+        <Button size="lg" onClick={handleClickContinue}>
+          이어서 풀기
+        </Button>
+        <Button size="lg" onClick={handleClickNewStart}>
+          새롭게 시작하기
+        </Button>
+      </Container>
+    )
+  }
+
   return (
     <Container>
-      {loading ? (
-        <>
-          <Loading />
-          <Text>퀴즈를 생성 중입니다...</Text>
-        </>
-      ) : (
-        <>
-          <Text size="xlg" style={{ margin: '16px 0' }}>
-            퀴즈를 시작해볼까요?
-          </Text>
-          <Button size="lg" onClick={handleClickStart}>
-            START
-          </Button>
-        </>
-      )}
+      <Text size="xlg" style={{ margin: '16px 0' }}>
+        퀴즈를 시작해볼까요?
+      </Text>
+      <Button size="lg" onClick={handleClickStart}>
+        START
+      </Button>
     </Container>
   )
 }

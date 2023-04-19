@@ -20,4 +20,8 @@ export default function Text({ children, size = 'sm', bold = false, style = {} }
 const Container = styled.div<TextProps>`
   font-size: ${({ size }) => FONT_SIZE[size || 'md']}px;
   font-weight: ${({ bold }) => (bold ? '600' : '400')};
+
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
 `

@@ -3,11 +3,6 @@ import { QuizResponseType } from '@/models/Quiz'
 
 const { VITE_QUIZ_API_END_POINT } = import.meta.env
 
-type ResponseData = {
-  response_code: number
-  results: QuizResponseType[]
-}
-
 const quizApiRequest = requestBuilder({
   baseURL: VITE_QUIZ_API_END_POINT,
   timeout: 3000,
@@ -23,7 +18,11 @@ export const generateQuiz = async () => {
     if (response.data && response.data.response_code !== 0) {
       throw new Error('data is nothing. Probably url is wrong.')
     }
-    return response.data as ResponseData
+
+    return response.data as {
+      response_code: number
+      results: QuizResponseType[]
+    }
   } catch (error) {
     throw new Error('fetch error')
   }

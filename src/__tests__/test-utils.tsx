@@ -1,38 +1,31 @@
-import React from 'react'
-import { Link, MemoryRouter } from 'react-router-dom'
+import React, { PropsWithChildren } from 'react'
+import { MemoryRouter } from 'react-router-dom'
+import { render, RenderOptions } from '@testing-library/react'
 import { Provider } from 'react-redux'
+import type { PreloadedState } from '@reduxjs/toolkit'
 
-import { store } from '@/store'
-import Router from '@/routes/Router'
-import { routeTable } from '@/routes/routeTable'
+import { AppStore, RootState, setupStore } from '@/store'
 
-export function renderApp() {
-  return function App() {
+interface ExtendedRenderOptions extends Omit<RenderOptions, 'queries'> {
+  preloadedState?: PreloadedState<RootState>
+  store?: AppStore
+}
+
+export function renderWithProviders(
+  ui: React.ReactElement,
+  {
+    preloadedState = {},
+    store = setupStore(preloadedState),
+    ...renderOptions
+  }: ExtendedRenderOptions = {},
+) {
+  // eslint-disable-next-line
+  function Wrapper({ children }: PropsWithChildren<{}>): JSX.Element {
     return (
       <MemoryRouter>
-        <Provider store={store}>
-          <nav>
-            <ul>
-              <li>
-                <Link to={routeTable.HOME.path}>Home</Link>
-              </li>
-              <li>
-                <Link to={routeTable.QUIZ.path}>Quiz</Link>
-              </li>
-              <li>
-                <Link to={routeTable.RESULT.path}>Result</Link>
-              </li>
-              <li>
-                <Link to={routeTable.CHECK_NOTE.path}>CheckNote</Link>
-              </li>
-              <li>
-                <Link to="qwerqwer">404</Link>
-              </li>
-            </ul>
-          </nav>
-          <Router />
-        </Provider>
+        <Provider store={store}>{children}</Provider>
       </MemoryRouter>
     )
   }
+  return { store, ...render(ui, { wrapper: Wrapper, ...renderOptions }) }
 }

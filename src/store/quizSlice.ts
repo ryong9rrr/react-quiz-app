@@ -17,10 +17,10 @@ const initialState: QuizState = {
   currentQuiz: null,
 }
 
-export const fetchQuiz = createAsyncThunk('GENERATE_QUIZ', async (_, { rejectWithValue }) => {
+export const generateQuiz = createAsyncThunk('GENERATE_QUIZ', async (_, { rejectWithValue }) => {
   try {
-    const quizResponse = await QuizApi.generateQuiz()
-    return quizResponse.results.map((quiz) => makeQuizData(quiz))
+    const res = await QuizApi.generateQuiz()
+    return res.results.map((quiz, index) => makeQuizData(quiz, index + 1))
   } catch (e) {
     return rejectWithValue('퀴즈를 불러오는데 실패했어요.')
   }
@@ -29,18 +29,23 @@ export const fetchQuiz = createAsyncThunk('GENERATE_QUIZ', async (_, { rejectWit
 export const quizSlice = createSlice({
   name: 'quiz',
   initialState,
-  reducers: {},
+  reducers: {
+    initialize: () => {
+      return initialState
+    },
+  },
   extraReducers: (builder) => {
-    builder.addCase(fetchQuiz.pending, (state) => {
+    builder.addCase(generateQuiz.pending, (state) => {
       state.status = 'loading'
     })
 
-    builder.addCase(fetchQuiz.fulfilled, (state, action) => {
+    builder.addCase(generateQuiz.fulfilled, (state, action) => {
       state.status = 'idle'
       state.quizList = action.payload
+      state.currentQuiz = state.quizList[0]
     })
 
-    builder.addCase(fetchQuiz.rejected, (state) => {
+    builder.addCase(generateQuiz.rejected, (state) => {
       state.status = 'error'
     })
   },
@@ -50,3 +55,5 @@ export const useQuizDispatch: () => AppDispatch = useDispatch
 export const useQuizSelector = () => useSelector((state: RootState) => state.quiz)
 
 export const quizReducer = quizSlice.reducer
+
+export const { initialize } = quizSlice.actions
