@@ -1,9 +1,9 @@
-import React from "react";
-import styled from "@emotion/styled";
-import { PALETTE } from "@/styles/theme";
+import React from 'react'
+import styled from '@emotion/styled'
+import { PALETTE } from '@/styles/theme'
 
 export default function HomePage() {
-  return <Container>HomePage</Container>;
+  return <Container>HomePage</Container>
 }
 
 const Container = styled.div`
@@ -16,4 +16,4 @@ const Container = styled.div`
   flex-direction: column;
   gap: 16px;
   text-align: center;
-`;
+`

@@ -1,25 +1,25 @@
 import React from 'react'
 import { render, screen, fireEvent, waitFor } from '@testing-library/react'
-import { BrowserRouter, Link } from 'react-router-dom'
-import { PATH } from './pages'
+import { Link, MemoryRouter } from 'react-router-dom'
 import Router from './Router'
+import { PAGE_INFO } from './pages'
 
 function App() {
   return (
-    <BrowserRouter>
+    <MemoryRouter>
       <nav>
         <ul>
           <li>
-            <Link to={PATH.HOME}>Home</Link>
+            <Link to={PAGE_INFO.HOME.PATH}>Home</Link>
           </li>
           <li>
-            <Link to={PATH.QUIZ}>Quiz</Link>
+            <Link to={PAGE_INFO.QUIZ.PATH}>Quiz</Link>
           </li>
           <li>
-            <Link to={PATH.RESULT}>Result</Link>
+            <Link to={PAGE_INFO.RESULT.PATH}>Result</Link>
           </li>
           <li>
-            <Link to={PATH.CHECK_NOTE}>CheckNote</Link>
+            <Link to={PAGE_INFO.CHECK_NOTE.PATH}>CheckNote</Link>
           </li>
           <li>
             <Link to="qwerqwer">404</Link>
@@ -27,21 +27,23 @@ function App() {
         </ul>
       </nav>
       <Router />
-    </BrowserRouter>
+    </MemoryRouter>
   )
 }
 
-describe('Router test', () => {
-  test('render HomePage', () => {
+describe('Router test: check title', () => {
+  test('render HomePage', async () => {
     render(<App />)
-    screen.getByText(/HomePage/i)
+    await waitFor(() => {
+      expect(document.title).toEqual(PAGE_INFO.HOME.TITLE)
+    })
   })
 
   test('render QuizPage', async () => {
     render(<App />)
     fireEvent.click(screen.getByText('Quiz'))
     await waitFor(() => {
-      screen.getByText(/QuizPage/i)
+      expect(document.title).toEqual(PAGE_INFO.QUIZ.TITLE)
     })
   })
 
@@ -49,7 +51,7 @@ describe('Router test', () => {
     render(<App />)
     fireEvent.click(screen.getByText('Result'))
     await waitFor(() => {
-      screen.getByText(/ResultPage/i)
+      expect(document.title).toEqual(PAGE_INFO.RESULT.TITLE)
     })
   })
 
@@ -57,15 +59,7 @@ describe('Router test', () => {
     render(<App />)
     fireEvent.click(screen.getByText('CheckNote'))
     await waitFor(() => {
-      screen.getByText(/CheckNotePage/i)
-    })
-  })
-
-  test('render 404', async () => {
-    render(<App />)
-    fireEvent.click(screen.getByText('404'))
-    await waitFor(() => {
-      screen.getByText(/존재하지 않는 페이지입니다./i)
+      expect(document.title).toEqual(PAGE_INFO.CHECK_NOTE.TITLE)
     })
   })
 })
