@@ -30,6 +30,8 @@
     "import/extensions": "off",
     "import/no-extraneous-dependencies": "warn",
     "react/jsx-filename-extension": ["warn", { "extensions": [".ts", ".tsx"] }],
-    "react/button-has-type": "warn"
+    "react/button-has-type": "warn",
+    "react/require-default-props": "warn",
+    "react/jsx-props-no-spreading": "warn"
   }
 }

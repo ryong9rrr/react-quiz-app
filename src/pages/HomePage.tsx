@@ -1,30 +1,54 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import styled from '@emotion/styled'
 
 import { PALETTE } from '@/styles/theme'
 import { fetchQuiz, useQuizDispatch, useQuizSelector } from '@/store/quizSlice'
+import Loading from '@/components/Loading'
+import Text from '@/components/Text'
+import Button from '@/components/Button'
 
 export default function HomePage() {
   const dispatch = useQuizDispatch()
   const quiz = useQuizSelector()
 
-  useEffect(() => {
-    dispatch(fetchQuiz())
-  }, [dispatch])
+  const loading = quiz.status === 'loading'
 
-  if (quiz.status === 'loading') {
-    return <Container>로딩중...</Container>
+  const handleClickStart = () => {
+    dispatch(fetchQuiz())
   }
 
   if (quiz.status === 'error') {
-    return <Container>에러발생</Container>
+    return (
+      <Container>
+        <>
+          <Text size="xlg" style={{ margin: '16px 0' }}>
+            퀴즈를 불러오는데 실패했습니다. 다시 시도해주세요.
+          </Text>
+          <Button size="lg" onClick={handleClickStart}>
+            다시 시도
+          </Button>
+        </>
+      </Container>
+    )
   }
 
   return (
     <Container>
-      {quiz.quizList.map((q) => (
-        <li key={q.question}>{q.question}</li>
-      ))}
+      {loading ? (
+        <>
+          <Loading />
+          <Text>퀴즈를 생성 중입니다...</Text>
+        </>
+      ) : (
+        <>
+          <Text size="xlg" style={{ margin: '16px 0' }}>
+            퀴즈를 시작해볼까요?
+          </Text>
+          <Button size="lg" onClick={handleClickStart}>
+            START
+          </Button>
+        </>
+      )}
     </Container>
   )
 }
