@@ -1,8 +1,9 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
 import { useDispatch, useSelector } from 'react-redux'
-import { Quiz, makeQuizData } from '@/models/Quiz'
-import { quizApi } from '@/apis'
+
 import { AppDispatch, RootState } from '.'
+import { Quiz, makeQuizData } from '@/models/Quiz'
+import * as QuizApi from '@/apis/quizApi'
 
 export interface QuizState {
   status: 'idle' | 'loading' | 'error'
@@ -18,7 +19,7 @@ const initialState: QuizState = {
 
 export const fetchQuiz = createAsyncThunk('GENERATE_QUIZ', async (_, { rejectWithValue }) => {
   try {
-    const quizResponse = await quizApi.generateQuiz()
+    const quizResponse = await QuizApi.generateQuiz()
     return quizResponse.results.map((quiz) => makeQuizData(quiz))
   } catch (e) {
     return rejectWithValue('퀴즈를 불러오는데 실패했어요.')

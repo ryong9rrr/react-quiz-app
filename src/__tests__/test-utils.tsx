@@ -3,8 +3,8 @@ import { Link, MemoryRouter } from 'react-router-dom'
 import { Provider } from 'react-redux'
 
 import { store } from '@/store'
-import { PAGE_INFO } from '@/pages'
-import Router from '@/Router'
+import Router from '@/routes/Router'
+import { routeTable } from '@/routes/routeTable'
 
 export function renderApp() {
   return function App() {
@@ -14,16 +14,16 @@ export function renderApp() {
           <nav>
             <ul>
               <li>
-                <Link to={PAGE_INFO.HOME.PATH}>Home</Link>
+                <Link to={routeTable.HOME.path}>Home</Link>
               </li>
               <li>
-                <Link to={PAGE_INFO.QUIZ.PATH}>Quiz</Link>
+                <Link to={routeTable.QUIZ.path}>Quiz</Link>
               </li>
               <li>
-                <Link to={PAGE_INFO.RESULT.PATH}>Result</Link>
+                <Link to={routeTable.RESULT.path}>Result</Link>
               </li>
               <li>
-                <Link to={PAGE_INFO.CHECK_NOTE.PATH}>CheckNote</Link>
+                <Link to={routeTable.CHECK_NOTE.path}>CheckNote</Link>
               </li>
               <li>
                 <Link to="qwerqwer">404</Link>
