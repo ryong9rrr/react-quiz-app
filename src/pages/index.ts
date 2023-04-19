@@ -1,4 +1,4 @@
-export { default as PAGE_INFO } from './page-info'
+export { default as PAGE_INFO } from './pageInfo'
 
 export { default as Page } from './Page'
 

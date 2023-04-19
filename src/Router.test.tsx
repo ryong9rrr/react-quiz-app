@@ -1,35 +1,10 @@
 import React from 'react'
 import { render, screen, fireEvent, waitFor } from '@testing-library/react'
-import { Link, MemoryRouter } from 'react-router-dom'
-import Router from './Router'
+
+import { renderApp } from './__tests__/test-utils'
 import { PAGE_INFO } from './pages'
 
-function App() {
-  return (
-    <MemoryRouter>
-      <nav>
-        <ul>
-          <li>
-            <Link to={PAGE_INFO.HOME.PATH}>Home</Link>
-          </li>
-          <li>
-            <Link to={PAGE_INFO.QUIZ.PATH}>Quiz</Link>
-          </li>
-          <li>
-            <Link to={PAGE_INFO.RESULT.PATH}>Result</Link>
-          </li>
-          <li>
-            <Link to={PAGE_INFO.CHECK_NOTE.PATH}>CheckNote</Link>
-          </li>
-          <li>
-            <Link to="qwerqwer">404</Link>
-          </li>
-        </ul>
-      </nav>
-      <Router />
-    </MemoryRouter>
-  )
-}
+const App = renderApp()
 
 describe('Router test: check title', () => {
   test('render HomePage', async () => {

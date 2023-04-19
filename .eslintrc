@@ -23,6 +23,7 @@
     "lines-between-class-members": "off",
     "no-underscore-dangle": "off",
     "no-use-before-define": "warn",
+    "no-param-reassign": "warn",
     "arrow-body-style": "off",
     "import/prefer-default-export": "off",
     "import/no-unresolved": "off",
