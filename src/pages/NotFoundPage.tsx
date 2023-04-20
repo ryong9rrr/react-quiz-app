@@ -1,7 +1,7 @@
-import React, { Suspense } from "react";
-import styled from "@emotion/styled";
+import React, { Suspense } from 'react'
+import styled from '@emotion/styled'
 
-const NotFound = React.lazy(() => import("@/components/NotFound"));
+const NotFound = React.lazy(() => import('@/components/NotFound'))
 
 export default function NotFoundPage() {
   return (
@@ -14,7 +14,7 @@ export default function NotFoundPage() {
         <button>홈으로</button>
       </Texts>
     </>
-  );
+  )
 }
 
 const Texts = styled.div`
@@ -23,4 +23,4 @@ const Texts = styled.div`
   justify-content: center;
   align-items: center;
   gap: 16px;
-`;
+`

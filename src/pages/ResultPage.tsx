@@ -1,5 +1,5 @@
-import React from "react";
-import styled from "@emotion/styled";
+import React from 'react'
+import styled from '@emotion/styled'
 
 export default function ResultPage() {
   return (
@@ -9,11 +9,11 @@ export default function ResultPage() {
         <button>새로운 퀴즈 풀기</button>
       </ButtonContainer>
     </>
-  );
+  )
 }
 
 const ButtonContainer = styled.div`
   margin-top: 20px;
   display: flex;
   justify-content: center;
-`;
+`
