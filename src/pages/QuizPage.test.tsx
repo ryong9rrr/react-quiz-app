@@ -1,5 +1,5 @@
 import React from 'react'
-import { fireEvent, screen, waitFor } from '@testing-library/react'
+import { screen } from '@testing-library/react'
 
 import { renderWithProviders } from '@/__tests__/test-utils'
 import QuizPage from './QuizPage'
@@ -16,7 +16,6 @@ describe('QuizPage test', () => {
   test('풀고 있는 문제가 있다면 퀴즈를 보여준다.', () => {
     const state: RootState = {
       quiz: {
-        status: 'idle',
         currentQuiz: makeQuizData(quizData as QuizResponseType, 1),
         quizList: [],
         solvedQuizList: [],
