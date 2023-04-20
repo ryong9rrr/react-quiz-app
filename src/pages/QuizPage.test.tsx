@@ -5,7 +5,7 @@ import { renderWithProviders } from '@/__tests__/test-utils'
 import QuizPage from './QuizPage'
 import { RootState } from '@/store'
 import { QuizResponseType, makeQuizData } from '@/models/Quiz'
-import quizData from '@/__mocks__/quiz.json'
+import quizData from '@/mocks/quiz.json'
 
 describe('QuizPage test', () => {
   test('풀고 있는 문제가 없다면 HomePage로 이동하는 것을 유도한다.', () => {

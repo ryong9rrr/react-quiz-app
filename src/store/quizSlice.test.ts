@@ -1,12 +1,7 @@
-import {
-  QuizActions as Actions,
-  QuizState,
-  makeQuizList,
-  quizReducer as reducer,
-} from './quizSlice'
+import { QuizActions as Actions, QuizState, quizReducer as reducer } from './quizSlice'
 
-import quizListDataJson from '@/__mocks__/quizList.json'
-import { Quiz } from '@/models/Quiz'
+import quizListDataJson from '@/mocks/quizList.json'
+import { Quiz, makeQuizList } from '@/models/Quiz'
 import { GenerateQuizResponse } from '@/apis/quizApi'
 
 let currentQuiz: Quiz
@@ -16,7 +11,6 @@ const InitState = {
   currentQuiz: null,
   quizList: [],
   solvedQuizList: [],
-  status: 'idle',
 }
 
 describe('quiz reducer unit test', () => {
@@ -32,14 +26,12 @@ describe('quiz reducer unit test', () => {
   test('preFetch()', () => {
     const latestState: QuizState = {
       currentQuiz,
-      status: 'idle',
       quizList,
       solvedQuizList: [],
     }
 
     expect(reducer(undefined, Actions.preFetch(latestState))).toEqual({
       currentQuiz,
-      status: 'idle',
       quizList,
       solvedQuizList: [],
     })
@@ -48,7 +40,6 @@ describe('quiz reducer unit test', () => {
   test('initialize()', () => {
     const prevState: QuizState = {
       currentQuiz,
-      status: 'idle',
       quizList,
       solvedQuizList: [],
     }

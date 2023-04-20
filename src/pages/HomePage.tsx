@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useState } from 'react'
 import styled from '@emotion/styled'
 import { useNavigate } from 'react-router-dom'
 
@@ -7,20 +7,26 @@ import Loading from '@/components/Loading'
 import Text from '@/components/Text'
 import Button from '@/components/Button'
 import { routeTable } from '@/routes/routeTable'
-import {
-  generateQuiz as genQuiz,
-  useQuizDispatch,
-  useQuizSelector,
-  QuizActions,
-} from '@/store/quizSlice'
+import { useQuizDispatch, useQuizSelector, QuizActions } from '@/store/quizSlice'
+import * as QuizApi from '@/apis/quizApi'
 
 export default function HomePage() {
+  const [loading, setLoading] = useState(false)
+  const [error, setError] = useState(false)
   const navigate = useNavigate()
   const dispatch = useQuizDispatch()
   const quiz = useQuizSelector()
 
   const handleClickStart = async () => {
-    await dispatch(genQuiz())
+    setLoading(true)
+    try {
+      const quizResponse = await QuizApi.generateQuiz()
+      dispatch(QuizActions.startQuiz(quizResponse))
+      navigate(routeTable.QUIZ.path)
+    } catch (e) {
+      setError(true)
+    }
+    setLoading(false)
   }
 
   const handleClickNewStart = () => {
@@ -31,14 +37,7 @@ export default function HomePage() {
     navigate(routeTable.QUIZ.path)
   }
 
-  useEffect(() => {
-    if (quiz.status === 'complete') {
-      navigate(routeTable.QUIZ.path)
-      dispatch(QuizActions.setStatus('idle'))
-    }
-  }, [quiz.status, navigate, dispatch])
-
-  if (quiz.status === 'loading') {
+  if (loading) {
     return (
       <Container>
         <Loading />
@@ -47,7 +46,7 @@ export default function HomePage() {
     )
   }
 
-  if (quiz.status === 'error') {
+  if (error) {
     return (
       <Container>
         <Text size="xlg" style={{ margin: '16px 0' }}>

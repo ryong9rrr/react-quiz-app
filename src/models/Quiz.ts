@@ -1,4 +1,5 @@
 import { decodeString } from '@/lib/utils'
+import * as QuizApi from '@/apis/quizApi'
 
 export type QuizResponseType = {
   category: string
@@ -31,4 +32,8 @@ export type SolvedQuiz = Quiz & {
 export const makeSolvedQuizData = (solvedQuiz: Quiz, selectedAnswerByUser: string) => {
   const isCorrect = solvedQuiz.correct_answer === selectedAnswerByUser
   return { ...solvedQuiz, isCorrect, selectedAnswerByUser }
+}
+
+export const makeQuizList = (res: QuizApi.GenerateQuizResponse) => {
+  return res.results.map((quiz, index) => makeQuizData(quiz, index + 1))
 }

@@ -1,10 +1,12 @@
 import React, { PropsWithChildren } from 'react'
-import { MemoryRouter } from 'react-router-dom'
+import { Link, MemoryRouter } from 'react-router-dom'
 import { render, RenderOptions } from '@testing-library/react'
 import { Provider } from 'react-redux'
 import type { PreloadedState } from '@reduxjs/toolkit'
 
 import { AppStore, RootState, setupStore } from '@/store'
+import { routeTable } from '@/routes/routeTable'
+import Router from '@/routes/Router'
 
 interface ExtendedRenderOptions extends Omit<RenderOptions, 'queries'> {
   preloadedState?: PreloadedState<RootState>
@@ -29,3 +31,26 @@ export function renderWithProviders(
   }
   return { store, ...render(ui, { wrapper: Wrapper, ...renderOptions }) }
 }
+
+export const renderWithRouter = () =>
+  renderWithProviders(
+    <>
+      <nav>
+        <ul>
+          <li>
+            <Link to={routeTable.HOME.path}>go_Home</Link>
+          </li>
+          <li>
+            <Link to={routeTable.QUIZ.path}>go_Quiz</Link>
+          </li>
+          <li>
+            <Link to={routeTable.RESULT.path}>go_Result</Link>
+          </li>
+          <li>
+            <Link to={routeTable.CHECK_NOTE.path}>go_CheckNote</Link>
+          </li>
+        </ul>
+      </nav>
+      <Router />
+    </>,
+  )
