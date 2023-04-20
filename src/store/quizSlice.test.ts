@@ -1,7 +1,7 @@
 import { QuizActions as Actions, QuizState, quizReducer as reducer } from './quizSlice'
 
 import quizListDataJson from '@/mocks/quizList.json'
-import { Quiz, makeQuizList, makeSolvedQuizData } from '@/models/Quiz'
+import { Quiz, makeQuizListModel, makeSolvedQuizModel } from '@/models/Quiz'
 import { GenerateQuizResponse } from '@/apis/quizApi'
 
 let currentQuiz: Quiz
@@ -15,7 +15,7 @@ const InitState = {
 
 describe('quiz reducer unit test', () => {
   beforeEach(() => {
-    quizList = makeQuizList(quizListDataJson as GenerateQuizResponse)
+    quizList = makeQuizListModel(quizListDataJson as GenerateQuizResponse)
     currentQuiz = quizList[0]
   })
 
@@ -90,7 +90,7 @@ describe('quiz reducer unit test', () => {
   test('solveQuiz() : 마지막 퀴즈를 풀면 퀴즈를 모두 푼 상태가 된다. 마지막 퀴즈까지 모두 풀었다면 에러를 반환한다.', () => {
     const solvedQuizList = []
     for (let i = 0; i < quizList.length - 1; i += 1) {
-      solvedQuizList.push(makeSolvedQuizData(quizList[i], 'user answer'))
+      solvedQuizList.push(makeSolvedQuizModel(quizList[i], 'user answer'))
     }
     const lastQuiz = quizList[quizList.length - 1]
 

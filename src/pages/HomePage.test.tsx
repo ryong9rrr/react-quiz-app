@@ -7,7 +7,8 @@ import { renderWithProviders, renderWithRouter } from '@/__tests__/test-utils'
 import { server, handlers } from '@/mocks/quizHandlers'
 import quizData from '@/mocks/quiz.json'
 import { RootState } from '@/store'
-import { QuizResponseType, makeQuizData } from '@/models/Quiz'
+import { makeQuizModel } from '@/models/Quiz'
+import { QuizResponseType } from '@/apis/quizApi'
 
 beforeAll(() => server.listen())
 afterEach(() => server.resetHandlers())
@@ -22,7 +23,7 @@ describe('HomePage test', () => {
   test('이미 풀고 있는 문제가 있다면 사용자에게 피드백을 준다.', async () => {
     const state: RootState = {
       quiz: {
-        currentQuiz: makeQuizData(quizData as QuizResponseType, 1),
+        currentQuiz: makeQuizModel(quizData as QuizResponseType, 1),
         quizList: [],
         solvedQuizList: [],
       },
@@ -62,7 +63,7 @@ describe('HomePage test', () => {
 
     // 퀴즈를 불러오면 퀴즈페이지로 이동한다.
     await waitFor(() => {
-      expect(screen.getByText('QuizPage')).toBeInTheDocument()
+      expect(screen.getByText('1번 문제')).toBeInTheDocument()
     })
   })
 })
