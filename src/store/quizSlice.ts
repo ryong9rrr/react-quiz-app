@@ -4,7 +4,6 @@ import { useDispatch, useSelector } from 'react-redux'
 import { AppDispatch, RootState } from '.'
 import { Quiz, SolvedQuiz, makeQuizList, makeSolvedQuizData } from '@/models/Quiz'
 import * as QuizApi from '@/apis/quizApi'
-import { setData } from '@/storages/quizStorage'
 
 export interface QuizState {
   quizList: Quiz[]
@@ -31,12 +30,10 @@ export const quizSlice = createSlice({
       return initialState
     },
     initialize: () => {
-      setData(initialState)
       return initialState
     },
     startQuiz: (state, action: PayloadAction<QuizApi.GenerateQuizResponse>) => {
       const quizList = makeQuizList(action.payload)
-      setData({ ...state, quizList, currentQuiz: quizList[0] })
       return { ...state, quizList, currentQuiz: quizList[0] }
     },
     // 1. 예외처리) 현재 퀴즈나 퀴즈데이터가 없다면 에러를 반환한다.
@@ -60,15 +57,8 @@ export const quizSlice = createSlice({
       ]
 
       if (!nextQuiz) {
-        setData({ ...state, currentQuiz: null, solvedQuizList })
         return { ...state, currentQuiz: null, solvedQuizList }
       }
-
-      setData({
-        ...state,
-        currentQuiz: nextQuiz,
-        solvedQuizList,
-      })
 
       return {
         ...state,
