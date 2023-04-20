@@ -44,10 +44,10 @@ export const quizSlice = createSlice({
     // 3. 유저가 선택한 답변을 인자로 받아서, solvedResult에 저장한다. 그리고 currentQuiz를 다음 퀴즈로 이동시킨다.
     solveQuiz: (state, action: PayloadAction<string>) => {
       if (state.quizList.length === 0 || state.currentQuiz === null) {
-        throw new Error('불러온 퀴즈가 없거나 풀고 있는 퀴즈가 없어서 액션을 실행할 수 없습니다..')
+        throw new Error('불러온 퀴즈가 없거나 풀고 있는 퀴즈가 없어서 액션을 실행할 수 없습니다.')
       }
 
-      if (state.currentQuiz.number > state.quizList.length) {
+      if (state.solvedQuizList.length >= state.quizList.length) {
         throw new Error('퀴즈를 모두 풀어서 액션을 실행할 수 없습니다.')
       }
 
