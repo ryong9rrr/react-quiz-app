@@ -1,4 +1,3 @@
-import { v4 as uuidv4 } from 'uuid'
 import { decodeString } from '@/lib/utils'
 
 export type QuizResponseType = {
@@ -10,22 +9,26 @@ export type QuizResponseType = {
   incorrect_answers: [string, string, string]
 }
 
-export type Quiz = {
+export type Quiz = QuizResponseType & {
   number: number
-  category: string
-  type: 'multiple'
-  difficulty: 'easy' | 'medium' | 'hard'
-  question: string
-  correctAnswer: string
-  incorrectAnswers: [string, string, string]
 }
 
 export const makeQuizData = (quiz: QuizResponseType, number: number): Quiz => {
   const question = decodeString(quiz.question)
-  const correctAnswer = decodeString(quiz.correct_answer)
-  const incorrectAnswers = quiz.incorrect_answers.map((incorrectAnswer) =>
+  const correct_answer = decodeString(quiz.correct_answer)
+  const incorrect_answers = quiz.incorrect_answers.map((incorrectAnswer) =>
     decodeString(incorrectAnswer),
   ) as [string, string, string]
 
-  return { ...quiz, number, question, correctAnswer, incorrectAnswers }
+  return { ...quiz, number, question, correct_answer, incorrect_answers }
+}
+
+export type SolvedQuiz = Quiz & {
+  selectedAnswerByUser: string
+  isCorrect: boolean
+}
+
+export const makeSolvedQuizData = (solvedQuiz: Quiz, selectedAnswerByUser: string) => {
+  const isCorrect = solvedQuiz.correct_answer === selectedAnswerByUser
+  return { ...solvedQuiz, isCorrect, selectedAnswerByUser }
 }

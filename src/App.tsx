@@ -1,14 +1,19 @@
-import React from 'react'
-import { Provider } from 'react-redux'
+import React, { useEffect } from 'react'
+
 import Router from './routes/Router'
-import { setupStore } from './store'
+import { useQuizDispatch, QuizActions } from './store/quizSlice'
+import { getData } from './storages/quizStorage'
+
+const preloadedState = getData()
 
 function App() {
-  return (
-    <Provider store={setupStore()}>
-      <Router />
-    </Provider>
-  )
+  const dispatch = useQuizDispatch()
+
+  useEffect(() => {
+    dispatch(QuizActions.preFetch(preloadedState))
+  }, [dispatch])
+
+  return <Router />
 }
 
 export default App

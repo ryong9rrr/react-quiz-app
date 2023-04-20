@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect } from 'react'
 import styled from '@emotion/styled'
 import { useNavigate } from 'react-router-dom'
 
@@ -11,35 +11,34 @@ import {
   generateQuiz as genQuiz,
   useQuizDispatch,
   useQuizSelector,
-  initialize,
+  QuizActions,
 } from '@/store/quizSlice'
 
 export default function HomePage() {
-  const [loading, setLoading] = useState(false)
   const navigate = useNavigate()
   const dispatch = useQuizDispatch()
   const quiz = useQuizSelector()
 
-  const generateQuiz = async () => {
+  const handleClickStart = async () => {
     await dispatch(genQuiz())
   }
 
-  const handleClickStart = async () => {
-    setLoading(true)
-    await generateQuiz()
-    setLoading(false)
-    navigate(routeTable.QUIZ.path)
-  }
-
   const handleClickNewStart = () => {
-    dispatch(initialize())
+    dispatch(QuizActions.initialize())
   }
 
   const handleClickContinue = () => {
     navigate(routeTable.QUIZ.path)
   }
 
-  if (loading) {
+  useEffect(() => {
+    if (quiz.status === 'complete') {
+      navigate(routeTable.QUIZ.path)
+      dispatch(QuizActions.setStatus('idle'))
+    }
+  }, [quiz.status, navigate, dispatch])
+
+  if (quiz.status === 'loading') {
     return (
       <Container>
         <Loading />
@@ -51,14 +50,12 @@ export default function HomePage() {
   if (quiz.status === 'error') {
     return (
       <Container>
-        <>
-          <Text size="xlg" style={{ margin: '16px 0' }}>
-            퀴즈를 불러오는데 실패했습니다. 다시 시도해주세요.
-          </Text>
-          <Button size="lg" onClick={handleClickStart}>
-            다시 시도
-          </Button>
-        </>
+        <Text size="xlg" style={{ margin: '16px 0' }}>
+          퀴즈를 불러오는데 실패했습니다. 다시 시도해주세요.
+        </Text>
+        <Button size="lg" onClick={handleClickStart}>
+          다시 시도
+        </Button>
       </Container>
     )
   }
