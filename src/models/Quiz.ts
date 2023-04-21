@@ -20,11 +20,11 @@ const toQuiz = (quiz: QuizResponseType, number: number): Quiz => {
   return { ...quiz, number, question, correct_answer, incorrect_answers }
 }
 
-const toQuizList = (quizResponse: GenerateQuizResponse) => {
+const toQuizList = (quizResponse: GenerateQuizResponse): Quiz[] => {
   return quizResponse.results.map((quiz, index) => toQuiz(quiz, index + 1))
 }
 
-const toSolvedQuiz = (solvedQuiz: Quiz, selectedAnswerByUser: string) => {
+const toSolvedQuiz = (solvedQuiz: Quiz, selectedAnswerByUser: string): SolvedQuiz => {
   const isCorrect = solvedQuiz.correct_answer === selectedAnswerByUser
   return { ...solvedQuiz, isCorrect, selectedAnswerByUser }
 }

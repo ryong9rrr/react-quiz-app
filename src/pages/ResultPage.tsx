@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom'
 import styled from '@emotion/styled'
 
 import * as Atom from '@/components/atom'
+import * as Quiz from '@/components/quiz'
 import { routeTable } from '@/routes'
 import { useQuizDispatch, QuizActions } from '@/store/quizSlice'
 import { useQuiz } from '@/hooks'
@@ -10,7 +11,7 @@ import { useQuiz } from '@/hooks'
 export default function ResultPage() {
   const navigate = useNavigate()
   const dispatch = useQuizDispatch()
-  const { isClear, isSolving, isNotStart } = useQuiz()
+  const { isClear, isSolving, isNotStart, correctCount, inCorrectCount } = useQuiz()
 
   const handleClickNewStart = () => {
     dispatch(QuizActions.initialize())
@@ -47,6 +48,7 @@ export default function ResultPage() {
       <Atom.Text size="xlg" bold style={{ marginBottom: '20px' }}>
         👏 수고하셨습니다.
       </Atom.Text>
+      <Quiz.ResultChart correctCount={correctCount} inCorrectCount={inCorrectCount} />
       <ButtonContainer>
         <Atom.Button onClick={handleClickNewStart}>새로운 퀴즈 풀기</Atom.Button>
       </ButtonContainer>

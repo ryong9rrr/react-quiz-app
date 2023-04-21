@@ -19,6 +19,9 @@ export default function useQuiz() {
 
   const isNotStart = quizList.length === 0
 
+  const correctCount = solvedQuizList.filter((quiz) => quiz.isCorrect).length
+  const inCorrectCount = solvedQuizList.length - correctCount
+
   return {
     isClear,
     isSolving,
@@ -27,5 +30,7 @@ export default function useQuiz() {
     quizListLength,
     currentQuiz,
     isNotStart,
+    correctCount,
+    inCorrectCount,
   }
 }
