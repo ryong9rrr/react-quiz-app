@@ -3,12 +3,12 @@ import styled from '@emotion/styled'
 
 import { PALETTE } from '@/styles/theme'
 
-interface ProgressProps {
+interface Props {
   value: number
   height?: number
 }
 
-export default function ProgressBar({ value, height = 30, ...props }: ProgressProps) {
+export default function ProgressBar({ value, height = 30, ...props }: Props) {
   return (
     <ProgressContainer {...props}>
       <Rail height={height} />
@@ -23,7 +23,7 @@ const ProgressContainer = styled.div`
   height: 16px;
 `
 
-const Rail = styled.div<Pick<ProgressProps, 'height'>>`
+const Rail = styled.div<Pick<Props, 'height'>>`
   position: absolute;
   top: 6px;
   left: 0;
@@ -33,7 +33,7 @@ const Rail = styled.div<Pick<ProgressProps, 'height'>>`
   background-color: ${PALETTE.green[1]};
 `
 
-const Track = styled.div<Pick<ProgressProps, 'height'>>`
+const Track = styled.div<Pick<Props, 'height'>>`
   position: absolute;
   top: 6px;
   left: 0;

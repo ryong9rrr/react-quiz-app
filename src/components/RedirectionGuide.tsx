@@ -6,13 +6,13 @@ import Text from './Text'
 import Button from './Button'
 import { PALETTE } from '@/styles/theme'
 
-interface RedirectionGuideProps {
+interface Props {
   text: string
   path: string
   pathMessage: string
 }
 
-export default function RedirectionGuide({ text, path, pathMessage }: RedirectionGuideProps) {
+export default function RedirectionGuide({ text, path, pathMessage }: Props) {
   const navigate = useNavigate()
 
   const handleClickButton = () => {

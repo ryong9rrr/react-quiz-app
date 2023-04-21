@@ -2,14 +2,14 @@ import styled from '@emotion/styled'
 import React, { CSSProperties } from 'react'
 import { FONT_SIZE } from '@/styles/theme'
 
-interface TextProps {
+interface Props {
   children: React.ReactNode
   size?: keyof typeof FONT_SIZE
   bold?: boolean
   style?: CSSProperties
 }
 
-export default function Text({ children, size = 'sm', bold = false, style = {} }: TextProps) {
+export default function Text({ children, size = 'sm', bold = false, style = {} }: Props) {
   return (
     <Container size={size} bold={bold} style={style}>
       {children}
@@ -17,7 +17,7 @@ export default function Text({ children, size = 'sm', bold = false, style = {} }
   )
 }
 
-const Container = styled.div<TextProps>`
+const Container = styled.div<Props>`
   font-size: ${({ size }) => FONT_SIZE[size || 'md']}px;
   font-weight: ${({ bold }) => (bold ? '600' : '400')};
 

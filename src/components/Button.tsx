@@ -2,12 +2,12 @@ import styled from '@emotion/styled'
 import React, { ButtonHTMLAttributes } from 'react'
 import { FONT_SIZE, PALETTE } from '@/styles/theme'
 
-interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
+interface Props extends ButtonHTMLAttributes<HTMLButtonElement> {
   children: React.ReactNode
   size?: keyof typeof FONT_SIZE
 }
 
-export default function Button({ children, ...props }: ButtonProps) {
+export default function Button({ children, ...props }: Props) {
   return (
     <StyledButton type="button" {...props}>
       {children}
@@ -15,7 +15,7 @@ export default function Button({ children, ...props }: ButtonProps) {
   )
 }
 
-const StyledButton = styled.button<ButtonProps>`
+const StyledButton = styled.button<Props>`
   padding: 8px 16px;
   border: 1px solid ${PALETTE.green[1]};
   border-radius: 4px;
@@ -28,5 +28,12 @@ const StyledButton = styled.button<ButtonProps>`
   &:hover {
     background-color: ${PALETTE.green[2]};
     color: ${PALETTE.white};
+  }
+
+  &:disabled,
+  &[disabled] {
+    border: 1px solid #999999;
+    background-color: #cccccc;
+    color: #666666;
   }
 `

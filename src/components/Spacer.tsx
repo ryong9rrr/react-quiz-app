@@ -1,14 +1,14 @@
 import React from 'react'
 import styled from '@emotion/styled'
 
-interface SpacerProps {
+interface Props {
   height: number
 }
 
-export default function Spacer({ ...props }: SpacerProps) {
+export default function Spacer({ ...props }: Props) {
   return <Container {...props} />
 }
 
-const Container = styled.div<SpacerProps>`
+const Container = styled.div<Props>`
   height: ${({ height }) => height}px;
 `
