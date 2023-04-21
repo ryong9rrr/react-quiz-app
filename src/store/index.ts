@@ -1,5 +1,5 @@
 import { PreloadedState, combineReducers, configureStore } from '@reduxjs/toolkit'
-import { persistReducer } from 'redux-persist'
+import { persistReducer, FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER } from 'redux-persist'
 import storageSession from 'redux-persist/lib/storage/session'
 
 import { quizReducer } from './quizSlice'
@@ -19,6 +19,12 @@ export const setupStore = (preloadedState?: PreloadedState<RootState>) => {
   return configureStore({
     reducer: persisedReducer,
     preloadedState,
+    middleware: (getDefaultMiddleware) =>
+      getDefaultMiddleware({
+        serializableCheck: {
+          ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
+        },
+      }),
   })
 }
 
