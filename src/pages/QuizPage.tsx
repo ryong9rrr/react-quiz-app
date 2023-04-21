@@ -1,15 +1,14 @@
 import React from 'react'
 import styled from '@emotion/styled'
 
-import { useQuizDispatch, useQuizSelector } from '@/store/quizSlice'
+import { useQuizSelector } from '@/store/quizSlice'
 import RedirectionGuide from '@/components/RedirectionGuide'
 import { routeTable } from '@/routes/routeTable'
+import QuizSelect from '@/components/quiz/QuizSelect'
 import ProgressBar from '@/components/ProgressBar'
 import Spacer from '@/components/Spacer'
-import Text from '@/components/Text'
 
 export default function QuizPage() {
-  const dispatch = useQuizDispatch()
   const quiz = useQuizSelector()
 
   if (!quiz.currentQuiz) {
@@ -22,32 +21,26 @@ export default function QuizPage() {
     )
   }
 
+  const handleSolve = (userAnswer: string) => {
+    console.log(userAnswer)
+  }
+
   const quizListLength = quiz.quizList.length
   const currentQuizNumber = quiz.currentQuiz.number
 
-  const percentValue = Math.round((currentQuizNumber / quizListLength) * 100)
-
   return (
     <Container>
-      <ProgressBar value={percentValue} />
+      <ProgressBar value={Math.round((currentQuizNumber / quizListLength) * 100)} />
       <Spacer height={20} />
-      <QuizBox>
-        <Text bold size="xlg">
-          {quiz.currentQuiz.number}번 문제
-        </Text>
-        <Text size="lg">{quiz.currentQuiz.question}</Text>
-      </QuizBox>
+      <QuizSelect
+        currentQuiz={quiz.currentQuiz}
+        isLastQuiz={quizListLength === currentQuizNumber}
+        handleSolve={handleSolve}
+      />
     </Container>
   )
 }
 
 const Container = styled.section`
   margin-top: 50px;
-`
-
-const QuizBox = styled.div`
-  margin-top: 20px;
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
 `
