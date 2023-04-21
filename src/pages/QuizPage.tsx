@@ -1,35 +1,54 @@
 import React from 'react'
-import styled from '@emotion/styled'
+import { useNavigate } from 'react-router-dom'
 
-import { useQuizSelector } from '@/store/quizSlice'
-import RedirectionGuide from '@/components/RedirectionGuide'
+import { useQuizDispatch, useQuizSelector, QuizActions } from '@/store/quizSlice'
 import { routeTable } from '@/routes/routeTable'
 import QuizSelect from '@/components/quiz/QuizSelect'
 import ProgressBar from '@/components/ProgressBar'
 import Spacer from '@/components/Spacer'
+import Prompt from '@/components/Prompt'
+import Button from '@/components/Button'
 
 export default function QuizPage() {
+  const navigate = useNavigate()
+  const dispatch = useQuizDispatch()
   const quiz = useQuizSelector()
+  const isClear = quiz.quizList.length !== 0 && quiz.quizList.length === quiz.solvedQuizList.length
 
-  if (!quiz.currentQuiz) {
+  const handleClickNewStart = () => {
+    dispatch(QuizActions.initialize())
+    navigate(routeTable.HOME.path)
+  }
+
+  if (isClear) {
     return (
-      <RedirectionGuide
-        text="✋ 풀고 있는 퀴즈가 없어요!"
-        path={routeTable.HOME.path}
-        pathMessage="홈으로"
-      />
+      <Prompt text="👏 퀴즈를 모두 풀었어요." style={{ marginTop: '150px' }}>
+        <Button onClick={() => navigate(routeTable.RESULT.path)}>결과 보기</Button>
+        <Button onClick={handleClickNewStart}>새로운 퀴즈 풀기</Button>
+      </Prompt>
     )
   }
 
-  const handleSolve = (userAnswer: string) => {
-    console.log(userAnswer)
+  if (!quiz.currentQuiz) {
+    return (
+      <Prompt text="✋ 풀고 있는 퀴즈가 없어요!" style={{ marginTop: '150px' }}>
+        <Button onClick={() => navigate(routeTable.HOME.path)}>홈으로</Button>
+      </Prompt>
+    )
   }
 
   const quizListLength = quiz.quizList.length
   const currentQuizNumber = quiz.currentQuiz.number
 
+  const handleSolve = (userAnswer: string) => {
+    dispatch(QuizActions.solveQuiz(userAnswer))
+    if (currentQuizNumber === quizListLength) {
+      navigate(routeTable.RESULT.path)
+    }
+  }
+
   return (
-    <Container>
+    <div style={{ marginTop: '50px' }}>
       <ProgressBar value={Math.round((currentQuizNumber / quizListLength) * 100)} />
       <Spacer height={20} />
       <QuizSelect
@@ -37,10 +56,6 @@ export default function QuizPage() {
         isLastQuiz={quizListLength === currentQuizNumber}
         handleSolve={handleSolve}
       />
-    </Container>
+    </div>
   )
 }
-
-const Container = styled.section`
-  margin-top: 50px;
-`

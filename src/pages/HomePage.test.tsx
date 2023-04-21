@@ -1,14 +1,11 @@
 import React from 'react'
 import { fireEvent, screen, waitFor } from '@testing-library/react'
 
-import HomePage from '@/pages/HomePage'
-
-import { renderWithProviders, renderWithRouter } from '@/__tests__/test-utils'
+import { mockQuiz, renderWithProviders, renderWithRouter } from '@/__tests__/test-utils'
 import { server, handlers } from '@/mocks/quizHandlers'
-import quizData from '@/mocks/quiz.json'
 import { RootState } from '@/store'
-import { makeQuizModel } from '@/models/Quiz'
-import { QuizResponseType } from '@/apis/quizApi'
+
+import HomePage from '@/pages/HomePage'
 
 beforeAll(() => server.listen())
 afterEach(() => server.resetHandlers())
@@ -21,9 +18,10 @@ describe('HomePage test', () => {
   })
 
   test('이미 풀고 있는 문제가 있다면 사용자에게 피드백을 준다.', async () => {
+    const { currentQuiz } = mockQuiz(0)
     const state: RootState = {
       quiz: {
-        currentQuiz: makeQuizModel(quizData as QuizResponseType, 1),
+        currentQuiz,
         quizList: [],
         solvedQuizList: [],
       },

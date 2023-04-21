@@ -1,4 +1,4 @@
-import { ChangeEvent, useMemo, useState } from 'react'
+import { ChangeEvent, useEffect, useMemo, useState } from 'react'
 
 import { Quiz } from '@/models/Quiz'
 
@@ -16,6 +16,10 @@ export default function useQuizSelect(currentQuiz: Quiz) {
   }
 
   const isCorrect = selectedAnswer === correct_answer
+
+  useEffect(() => {
+    setSelectedAnswer(null)
+  }, [currentQuiz])
 
   return { options, selectedAnswer, handleSelect, isCorrect }
 }

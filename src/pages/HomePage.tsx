@@ -9,6 +9,7 @@ import Button from '@/components/Button'
 import { routeTable } from '@/routes/routeTable'
 import { useQuizDispatch, useQuizSelector, QuizActions } from '@/store/quizSlice'
 import * as QuizApi from '@/apis/quizApi'
+import Prompt from '@/components/Prompt'
 
 export default function HomePage() {
   const [loading, setLoading] = useState(false)
@@ -48,30 +49,27 @@ export default function HomePage() {
 
   if (error) {
     return (
-      <Container>
-        <Text size="xlg" style={{ margin: '16px 0' }}>
-          퀴즈를 불러오는데 실패했습니다. 다시 시도해주세요.
-        </Text>
+      <Prompt
+        text="퀴즈를 불러오는데 실패했습니다. 다시 시도해주세요."
+        style={{ marginTop: '150px' }}
+      >
         <Button size="lg" onClick={handleClickStart}>
           다시 시도
         </Button>
-      </Container>
+      </Prompt>
     )
   }
 
   if (quiz.currentQuiz) {
     return (
-      <Container>
-        <Text size="xlg" style={{ margin: '16px 0' }}>
-          이미 풀고 있는 퀴즈가 있습니다.
-        </Text>
+      <Prompt text="이미 풀고 있는 퀴즈가 있습니다." style={{ marginTop: '150px' }}>
         <Button size="lg" onClick={handleClickContinue}>
           이어서 풀기
         </Button>
         <Button size="lg" onClick={handleClickNewStart}>
           새롭게 시작하기
         </Button>
-      </Container>
+      </Prompt>
     )
   }
 

@@ -10,7 +10,7 @@ import Button from '../Button'
 interface Props {
   currentQuiz: Quiz
   isLastQuiz: boolean
-  handleSolve: (userAnswer: string) => void
+  handleSolve?: (userAnswer: string) => void
 }
 
 export default function QuizSelect({ currentQuiz, isLastQuiz, handleSolve }: Props) {
@@ -47,7 +47,7 @@ export default function QuizSelect({ currentQuiz, isLastQuiz, handleSolve }: Pro
         ))}
       </RadioBox>
       {!!selectedAnswer && (
-        <Button onClick={() => handleSolve(selectedAnswer)}>
+        <Button onClick={handleSolve && (() => handleSolve(selectedAnswer))}>
           {isLastQuiz ? '결과 보기' : '다음 문제'}
         </Button>
       )}

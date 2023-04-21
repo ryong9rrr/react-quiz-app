@@ -8,6 +8,10 @@ import { AppStore, RootState, setupStore } from '@/store'
 import { routeTable } from '@/routes/routeTable'
 import Router from '@/routes/Router'
 
+import quizListDataJson from '@/mocks/quizList.json'
+import { GenerateQuizResponse } from '@/apis/quizApi'
+import { makeQuizListModel } from '@/models/Quiz'
+
 interface ExtendedRenderOptions extends Omit<RenderOptions, 'queries'> {
   preloadedState?: PreloadedState<RootState>
   store?: AppStore
@@ -54,3 +58,9 @@ export const renderWithRouter = () =>
       <Router />
     </>,
   )
+
+export const mockQuiz = (currentQuizIndex: number) => {
+  const quizList = makeQuizListModel(quizListDataJson as GenerateQuizResponse)
+  const currentQuiz = quizList[currentQuizIndex]
+  return { quizList, currentQuiz }
+}
