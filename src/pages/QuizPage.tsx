@@ -4,17 +4,25 @@ import { useNavigate } from 'react-router-dom'
 import * as Atom from '@/components/atom'
 import * as Quiz from '@/components/quiz'
 import { routeTable } from '@/routes'
-import { useQuizDispatch, useQuizSelector, QuizActions } from '@/store/quizSlice'
+import { useQuizDispatch, QuizActions } from '@/store/quizSlice'
+import { useQuiz } from '@/hooks'
 
 export default function QuizPage() {
   const navigate = useNavigate()
   const dispatch = useQuizDispatch()
-  const quiz = useQuizSelector()
-  const isClear = quiz.quizList.length !== 0 && quiz.quizList.length === quiz.solvedQuizList.length
+  const { isClear, isSolving, progressBarPercent, currentQuizNumber, quizListLength, currentQuiz } =
+    useQuiz()
 
   const handleClickNewStart = () => {
     dispatch(QuizActions.initialize())
     navigate(routeTable.HOME.path)
+  }
+
+  const handleSolve = (userAnswer: string) => {
+    dispatch(QuizActions.solveQuiz(userAnswer))
+    if (currentQuizNumber === quizListLength) {
+      navigate(routeTable.RESULT.path)
+    }
   }
 
   if (isClear) {
@@ -26,7 +34,7 @@ export default function QuizPage() {
     )
   }
 
-  if (!quiz.currentQuiz) {
+  if (!isSolving) {
     return (
       <Atom.Prompt text="✋ 풀고 있는 퀴즈가 없어요!" style={{ marginTop: '150px' }}>
         <Atom.Button onClick={() => navigate(routeTable.HOME.path)}>홈으로</Atom.Button>
@@ -34,22 +42,12 @@ export default function QuizPage() {
     )
   }
 
-  const quizListLength = quiz.quizList.length
-  const currentQuizNumber = quiz.currentQuiz.number
-
-  const handleSolve = (userAnswer: string) => {
-    dispatch(QuizActions.solveQuiz(userAnswer))
-    if (currentQuizNumber === quizListLength) {
-      navigate(routeTable.RESULT.path)
-    }
-  }
-
   return (
     <div style={{ marginTop: '50px' }}>
-      <Atom.ProgressBar value={Math.round((currentQuizNumber / quizListLength) * 100)} />
+      <Atom.ProgressBar value={progressBarPercent} />
       <Atom.Spacer height={20} />
       <Quiz.QuizSelect
-        currentQuiz={quiz.currentQuiz}
+        currentQuiz={currentQuiz!}
         isLastQuiz={quizListLength === currentQuizNumber}
         handleSolve={handleSolve}
       />

@@ -16,12 +16,12 @@ describe('HomePage test', () => {
     expect(screen.getByText('퀴즈를 시작해볼까요?')).toBeInTheDocument()
   })
 
-  test('이미 풀고 있는 문제가 있다면 사용자에게 피드백을 준다.', async () => {
-    const { currentQuiz } = mockQuiz(0)
+  test("이미 풀고 있는 문제가 있다면 '이미 풀고 있는 퀴즈가 있습니다.' 라는 피드백을 준다.", async () => {
+    const { currentQuiz, quizList } = mockQuiz(0)
     const state: RootState = {
       quiz: {
         currentQuiz,
-        quizList: [],
+        quizList,
         solvedQuizList: [],
       },
     }
@@ -30,7 +30,7 @@ describe('HomePage test', () => {
     expect(screen.getByText(/이미 풀고 있는 퀴즈가 있습니다./i)).toBeInTheDocument()
   })
 
-  test('퀴즈를 생성하고 에러가 발생한다면 사용자에게 피드백을 준다.', async () => {
+  test("퀴즈를 생성하고 에러가 발생한다면 '퀴즈를 불러오는데 실패했습니다. 다시 시도해주세요.' 라는 피드백을 준다.", async () => {
     server.use(handlers.generateQuizForError)
     renderWithProviders(<HomePage />)
 
@@ -62,5 +62,19 @@ describe('HomePage test', () => {
     await waitFor(() => {
       expect(screen.getByText('1번 문제')).toBeInTheDocument()
     })
+  })
+
+  test("문제를 모두 풀었다면 '퀴즈를 모두 풀었어요.' 라는 피드백을 준다.", async () => {
+    const { quizList } = mockQuiz(0)
+    const state: RootState = {
+      quiz: {
+        currentQuiz: null,
+        quizList,
+        solvedQuizList: [],
+      },
+    }
+    state.quiz.solvedQuizList.length = quizList.length
+    renderWithProviders(<HomePage />, { preloadedState: state })
+    expect(screen.getByText(/퀴즈를 모두 풀었어요./i)).toBeInTheDocument()
   })
 })

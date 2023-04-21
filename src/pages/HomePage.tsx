@@ -5,15 +5,16 @@ import { useNavigate } from 'react-router-dom'
 import * as Atom from '@/components/atom'
 import { PALETTE } from '@/styles/theme'
 import { routeTable } from '@/routes'
-import { useQuizDispatch, useQuizSelector, QuizActions } from '@/store/quizSlice'
+import { useQuizDispatch, QuizActions } from '@/store/quizSlice'
 import * as QuizApi from '@/apis/quizApi'
+import { useQuiz } from '@/hooks'
 
 export default function HomePage() {
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState(false)
   const navigate = useNavigate()
   const dispatch = useQuizDispatch()
-  const quiz = useQuizSelector()
+  const { isClear, isSolving } = useQuiz()
 
   const handleClickStart = async () => {
     setLoading(true)
@@ -25,14 +26,6 @@ export default function HomePage() {
       setError(true)
     }
     setLoading(false)
-  }
-
-  const handleClickNewStart = () => {
-    dispatch(QuizActions.initialize())
-  }
-
-  const handleClickContinue = () => {
-    navigate(routeTable.QUIZ.path)
   }
 
   if (loading) {
@@ -57,13 +50,26 @@ export default function HomePage() {
     )
   }
 
-  if (quiz.currentQuiz) {
+  if (isSolving) {
     return (
       <Atom.Prompt text="이미 풀고 있는 퀴즈가 있습니다." style={{ marginTop: '150px' }}>
-        <Atom.Button size="lg" onClick={handleClickContinue}>
+        <Atom.Button size="lg" onClick={() => navigate(routeTable.QUIZ.path)}>
           이어서 풀기
         </Atom.Button>
-        <Atom.Button size="lg" onClick={handleClickNewStart}>
+        <Atom.Button size="lg" onClick={() => dispatch(QuizActions.initialize())}>
+          새롭게 시작하기
+        </Atom.Button>
+      </Atom.Prompt>
+    )
+  }
+
+  if (isClear) {
+    return (
+      <Atom.Prompt text="퀴즈를 모두 풀었어요." style={{ marginTop: '150px' }}>
+        <Atom.Button size="lg" onClick={() => navigate(routeTable.RESULT.path)}>
+          결과 보기
+        </Atom.Button>
+        <Atom.Button size="lg" onClick={() => dispatch(QuizActions.initialize())}>
           새롭게 시작하기
         </Atom.Button>
       </Atom.Prompt>
