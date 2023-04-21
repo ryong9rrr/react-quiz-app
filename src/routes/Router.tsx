@@ -1,7 +1,7 @@
 import React from 'react'
 import { Route, Routes } from 'react-router-dom'
 
-import { routeTable } from './routeTable'
+import routeTable from './routeTable'
 import PageWrapper from './PageWrapper'
 
 export default function Router() {

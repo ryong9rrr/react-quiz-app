@@ -2,14 +2,11 @@ import React, { useState } from 'react'
 import styled from '@emotion/styled'
 import { useNavigate } from 'react-router-dom'
 
+import * as Atom from '@/components/atom'
 import { PALETTE } from '@/styles/theme'
-import Loading from '@/components/Loading'
-import Text from '@/components/Text'
-import Button from '@/components/Button'
-import { routeTable } from '@/routes/routeTable'
+import { routeTable } from '@/routes'
 import { useQuizDispatch, useQuizSelector, QuizActions } from '@/store/quizSlice'
 import * as QuizApi from '@/apis/quizApi'
-import Prompt from '@/components/Prompt'
 
 export default function HomePage() {
   const [loading, setLoading] = useState(false)
@@ -41,46 +38,46 @@ export default function HomePage() {
   if (loading) {
     return (
       <Container>
-        <Loading />
-        <Text>퀴즈를 생성 중입니다...</Text>
+        <Atom.Loading />
+        <Atom.Text>퀴즈를 생성 중입니다...</Atom.Text>
       </Container>
     )
   }
 
   if (error) {
     return (
-      <Prompt
+      <Atom.Prompt
         text="퀴즈를 불러오는데 실패했습니다. 다시 시도해주세요."
         style={{ marginTop: '150px' }}
       >
-        <Button size="lg" onClick={handleClickStart}>
+        <Atom.Button size="lg" onClick={handleClickStart}>
           다시 시도
-        </Button>
-      </Prompt>
+        </Atom.Button>
+      </Atom.Prompt>
     )
   }
 
   if (quiz.currentQuiz) {
     return (
-      <Prompt text="이미 풀고 있는 퀴즈가 있습니다." style={{ marginTop: '150px' }}>
-        <Button size="lg" onClick={handleClickContinue}>
+      <Atom.Prompt text="이미 풀고 있는 퀴즈가 있습니다." style={{ marginTop: '150px' }}>
+        <Atom.Button size="lg" onClick={handleClickContinue}>
           이어서 풀기
-        </Button>
-        <Button size="lg" onClick={handleClickNewStart}>
+        </Atom.Button>
+        <Atom.Button size="lg" onClick={handleClickNewStart}>
           새롭게 시작하기
-        </Button>
-      </Prompt>
+        </Atom.Button>
+      </Atom.Prompt>
     )
   }
 
   return (
     <Container>
-      <Text size="xlg" style={{ margin: '16px 0' }}>
+      <Atom.Text size="xlg" style={{ margin: '16px 0' }}>
         퀴즈를 시작해볼까요?
-      </Text>
-      <Button size="lg" onClick={handleClickStart}>
+      </Atom.Text>
+      <Atom.Button size="lg" onClick={handleClickStart}>
         START
-      </Button>
+      </Atom.Button>
     </Container>
   )
 }

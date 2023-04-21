@@ -1,33 +1,31 @@
-import HomePage from '@/pages/HomePage'
-import QuizPage from '@/pages/QuizPage'
-import ResultPage from '@/pages/ResultPage'
-import CheckNotePage from '@/pages/CheckNotePage'
-import NotFoundPage from '@/pages/NotFoundPage'
+import * as Page from '@/pages'
 
-export const routeTable = {
+const routeTable = {
   HOME: {
     path: '/',
     title: '홈 | Mini-Quiz',
-    renderPage: () => HomePage,
+    renderPage: () => Page.HomePage,
   },
   QUIZ: {
     path: '/quiz',
     title: '퀴즈 | Mini-Quiz',
-    renderPage: () => QuizPage,
+    renderPage: () => Page.QuizPage,
   },
   RESULT: {
     path: '/result',
     title: '퀴즈 결과 | Mini-Quiz',
-    renderPage: () => ResultPage,
+    renderPage: () => Page.ResultPage,
   },
   CHECK_NOTE: {
     path: '/check-note',
     title: '오답 노트 | Mini-Quiz',
-    renderPage: () => CheckNotePage,
+    renderPage: () => Page.CheckNotePage,
   },
   NOT_FOUND: {
     path: '*',
     title: '404 | Mini-Quiz',
-    renderPage: () => NotFoundPage,
+    renderPage: () => Page.NotFoundPage,
   },
 } as const
+
+export default routeTable

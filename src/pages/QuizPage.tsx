@@ -1,13 +1,10 @@
 import React from 'react'
 import { useNavigate } from 'react-router-dom'
 
+import * as Atom from '@/components/atom'
+import * as Quiz from '@/components/quiz'
+import { routeTable } from '@/routes'
 import { useQuizDispatch, useQuizSelector, QuizActions } from '@/store/quizSlice'
-import { routeTable } from '@/routes/routeTable'
-import QuizSelect from '@/components/quiz/QuizSelect'
-import ProgressBar from '@/components/ProgressBar'
-import Spacer from '@/components/Spacer'
-import Prompt from '@/components/Prompt'
-import Button from '@/components/Button'
 
 export default function QuizPage() {
   const navigate = useNavigate()
@@ -22,18 +19,18 @@ export default function QuizPage() {
 
   if (isClear) {
     return (
-      <Prompt text="👏 퀴즈를 모두 풀었어요." style={{ marginTop: '150px' }}>
-        <Button onClick={() => navigate(routeTable.RESULT.path)}>결과 보기</Button>
-        <Button onClick={handleClickNewStart}>새로운 퀴즈 풀기</Button>
-      </Prompt>
+      <Atom.Prompt text="👏 퀴즈를 모두 풀었어요." style={{ marginTop: '150px' }}>
+        <Atom.Button onClick={() => navigate(routeTable.RESULT.path)}>결과 보기</Atom.Button>
+        <Atom.Button onClick={handleClickNewStart}>새로운 퀴즈 풀기</Atom.Button>
+      </Atom.Prompt>
     )
   }
 
   if (!quiz.currentQuiz) {
     return (
-      <Prompt text="✋ 풀고 있는 퀴즈가 없어요!" style={{ marginTop: '150px' }}>
-        <Button onClick={() => navigate(routeTable.HOME.path)}>홈으로</Button>
-      </Prompt>
+      <Atom.Prompt text="✋ 풀고 있는 퀴즈가 없어요!" style={{ marginTop: '150px' }}>
+        <Atom.Button onClick={() => navigate(routeTable.HOME.path)}>홈으로</Atom.Button>
+      </Atom.Prompt>
     )
   }
 
@@ -49,9 +46,9 @@ export default function QuizPage() {
 
   return (
     <div style={{ marginTop: '50px' }}>
-      <ProgressBar value={Math.round((currentQuizNumber / quizListLength) * 100)} />
-      <Spacer height={20} />
-      <QuizSelect
+      <Atom.ProgressBar value={Math.round((currentQuizNumber / quizListLength) * 100)} />
+      <Atom.Spacer height={20} />
+      <Quiz.QuizSelect
         currentQuiz={quiz.currentQuiz}
         isLastQuiz={quizListLength === currentQuizNumber}
         handleSolve={handleSolve}

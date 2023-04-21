@@ -2,8 +2,8 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { useDispatch, useSelector } from 'react-redux'
 
 import { AppDispatch, RootState } from '.'
-import { Quiz, SolvedQuiz, makeQuizListModel, makeSolvedQuizModel } from '@/models/Quiz'
-import * as QuizApi from '@/apis/quizApi'
+import { Quiz, SolvedQuiz, modelBuilder } from '@/models/Quiz'
+import { GenerateQuizResponse } from '@/apis/quizApi.types'
 
 export interface QuizState {
   quizList: Quiz[]
@@ -32,8 +32,8 @@ export const quizSlice = createSlice({
     initialize: () => {
       return initialState
     },
-    startQuiz: (state, action: PayloadAction<QuizApi.GenerateQuizResponse>) => {
-      const quizList = makeQuizListModel(action.payload)
+    startQuiz: (state, action: PayloadAction<GenerateQuizResponse>) => {
+      const quizList = modelBuilder.toQuizList(action.payload)
       return { ...state, quizList, currentQuiz: quizList[0] }
     },
     // 1. 예외처리) 현재 퀴즈나 퀴즈데이터가 없다면 에러를 반환한다.
@@ -53,7 +53,7 @@ export const quizSlice = createSlice({
 
       const solvedQuizList = [
         ...state.solvedQuizList,
-        makeSolvedQuizModel(state.currentQuiz, action.payload),
+        modelBuilder.toSolvedQuiz(state.currentQuiz, action.payload),
       ]
 
       if (!nextQuiz) {

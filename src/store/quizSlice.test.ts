@@ -2,8 +2,8 @@ import { QuizActions as Actions, QuizState, quizReducer as reducer } from './qui
 
 import { mockQuiz } from '@/__tests__/test-utils'
 import quizListDataJson from '@/mocks/quizList.json'
-import { makeSolvedQuizModel } from '@/models/Quiz'
-import { GenerateQuizResponse } from '@/apis/quizApi'
+import { modelBuilder } from '@/models/Quiz'
+import { GenerateQuizResponse } from '@/apis/quizApi.types'
 
 const InitState = {
   currentQuiz: null,
@@ -69,7 +69,7 @@ describe('quiz reducer unit test', () => {
     const { quizList } = mockQuiz(0)
     const solvedQuizList = []
     for (let i = 0; i < quizList.length - 1; i += 1) {
-      solvedQuizList.push(makeSolvedQuizModel(quizList[i], 'user answer'))
+      solvedQuizList.push(modelBuilder.toSolvedQuiz(quizList[i], 'user answer'))
     }
     const lastQuiz = quizList[quizList.length - 1]
 

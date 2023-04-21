@@ -1,11 +1,10 @@
 import React from 'react'
 import { fireEvent, screen, waitFor } from '@testing-library/react'
 
+import HomePage from '@/pages/HomePage'
 import { mockQuiz, renderWithProviders, renderWithRouter } from '@/__tests__/test-utils'
 import { server, handlers } from '@/mocks/quizHandlers'
 import { RootState } from '@/store'
-
-import HomePage from '@/pages/HomePage'
 
 beforeAll(() => server.listen())
 afterEach(() => server.resetHandlers())

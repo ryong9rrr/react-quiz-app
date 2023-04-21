@@ -1,11 +1,10 @@
 import React from 'react'
 import styled from '@emotion/styled'
 
-import Text from '../Text'
+import * as Atom from '@/components/atom'
+import { useQuizSelect } from '@/hooks'
 import { Quiz } from '@/models/Quiz'
-import useQuizSelect from '@/hooks/useQuizSelect'
 import { PALETTE } from '@/styles/theme'
-import Button from '../Button'
 
 interface Props {
   currentQuiz: Quiz
@@ -21,17 +20,17 @@ export default function QuizSelect({ currentQuiz, isLastQuiz, handleSolve }: Pro
       {selectedAnswer && (
         <Feedback isCorrect={isCorrect}>
           {isCorrect ? (
-            <Text size="lg">🎊 정답입니다! 🎊</Text>
+            <Atom.Text size="lg">🎊 정답입니다! 🎊</Atom.Text>
           ) : (
-            <Text size="lg">🤔 다시 생각해보세요.</Text>
+            <Atom.Text size="lg">🤔 다시 생각해보세요.</Atom.Text>
           )}
         </Feedback>
       )}
-      <Text bold size="xlg">
+      <Atom.Text bold size="xlg">
         {currentQuiz.number}번 문제
-      </Text>
-      <Text size="lg">{currentQuiz.question}</Text>
-      <RadioBox>
+      </Atom.Text>
+      <Atom.Text size="lg">{currentQuiz.question}</Atom.Text>
+      <Radio>
         {options.map((option) => (
           <li key={option}>
             <input
@@ -45,11 +44,11 @@ export default function QuizSelect({ currentQuiz, isLastQuiz, handleSolve }: Pro
             <label htmlFor={option}>{option}</label>
           </li>
         ))}
-      </RadioBox>
+      </Radio>
       {!!selectedAnswer && (
-        <Button onClick={handleSolve && (() => handleSolve(selectedAnswer))}>
+        <Atom.Button onClick={handleSolve && (() => handleSolve(selectedAnswer))}>
           {isLastQuiz ? '결과 보기' : '다음 문제'}
-        </Button>
+        </Atom.Button>
       )}
     </Container>
   )
@@ -73,7 +72,7 @@ const Feedback = styled.div<{ isCorrect: boolean }>`
   align-items: center;
 `
 
-const RadioBox = styled.ul`
+const Radio = styled.ul`
   display: flex;
   flex-direction: column;
   gap: 4px;
