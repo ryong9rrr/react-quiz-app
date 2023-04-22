@@ -44,9 +44,9 @@ export default function ResultPage() {
       <Atom.Text size="xlg" bold style={{ marginBottom: '20px' }}>
         👏 수고하셨습니다.
       </Atom.Text>
+      <Quiz.ResultSummary inCorrectCount={inCorrectCount} correctCount={correctCount} />
       <Quiz.ResultChart correctCount={correctCount} inCorrectCount={inCorrectCount} />
       <ButtonContainer>
-        <Atom.Button onClick={() => navigate(routeTable.CHECK_NOTE.path)}>✏️ 오답 노트</Atom.Button>
         <Atom.Button onClick={handleClickNewStart}>새로운 퀴즈 풀기</Atom.Button>
       </ButtonContainer>
     </div>
