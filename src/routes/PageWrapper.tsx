@@ -20,7 +20,6 @@ export default function Page({ route }: Props) {
   )
 }
 const Main = styled.main`
-  min-height: 100vh;
   margin: 0 auto;
   min-width: 380px;
   max-width: 512px;

@@ -10,15 +10,11 @@ import { routeTable } from '@/routes'
 export default function CheckNotePage() {
   const navigate = useNavigate()
   const dispatch = useQuizDispatch()
-  const { isClear, isSolving, isNotStart, correctCount, inCorrectCount } = useQuiz()
+  const { isClear, isSolving, isNotStart, solvedQuizList } = useQuiz()
 
   const handleClickNewStart = () => {
     dispatch(QuizActions.initialize())
     navigate(routeTable.HOME.path)
-  }
-
-  const handleClickContinue = () => {
-    navigate(routeTable.QUIZ.path)
   }
 
   if (isNotStart) {
@@ -32,7 +28,7 @@ export default function CheckNotePage() {
   if (isSolving || !isClear) {
     return (
       <Atom.Prompt text="✋ 아직 퀴즈를 다 풀지 않았어요!" style={{ marginTop: '150px' }}>
-        <Atom.Button size="lg" onClick={handleClickContinue}>
+        <Atom.Button size="lg" onClick={() => navigate(routeTable.QUIZ.path)}>
           이어서 풀기
         </Atom.Button>
         <Atom.Button size="lg" onClick={handleClickNewStart}>
@@ -43,11 +39,12 @@ export default function CheckNotePage() {
   }
 
   return (
-    <>
+    <div style={{ marginTop: '20px' }}>
       <Atom.Text size="xlg" bold>
         📝 오답 노트
       </Atom.Text>
       <Atom.Spacer height={20} />
-    </>
+      <Quiz.CheckNote solvedQuizList={solvedQuizList} />
+    </div>
   )
 }

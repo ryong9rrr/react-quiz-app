@@ -2,7 +2,6 @@ import { useQuizSelector } from '@/store/quizSlice'
 
 export default function useQuiz() {
   const quizState = useQuizSelector()
-
   const { quizList, currentQuiz, solvedQuizList } = quizState
 
   const isClear = quizList.length !== 0 && !currentQuiz && quizList.length === solvedQuizList.length
@@ -32,5 +31,7 @@ export default function useQuiz() {
     isNotStart,
     correctCount,
     inCorrectCount,
+    quizList,
+    solvedQuizList,
   }
 }

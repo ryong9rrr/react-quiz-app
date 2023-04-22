@@ -18,10 +18,6 @@ export default function ResultPage() {
     navigate(routeTable.HOME.path)
   }
 
-  const handleClickContinue = () => {
-    navigate(routeTable.QUIZ.path)
-  }
-
   if (isNotStart) {
     return (
       <Atom.Prompt text="✋ 풀고 있는 퀴즈가 없어요." style={{ marginTop: '150px' }}>
@@ -33,7 +29,7 @@ export default function ResultPage() {
   if (isSolving || !isClear) {
     return (
       <Atom.Prompt text="✋ 아직 퀴즈를 다 풀지 않았어요!" style={{ marginTop: '150px' }}>
-        <Atom.Button size="lg" onClick={handleClickContinue}>
+        <Atom.Button size="lg" onClick={() => navigate(routeTable.QUIZ.path)}>
           이어서 풀기
         </Atom.Button>
         <Atom.Button size="lg" onClick={handleClickNewStart}>
@@ -44,15 +40,16 @@ export default function ResultPage() {
   }
 
   return (
-    <>
+    <div style={{ marginTop: '20px' }}>
       <Atom.Text size="xlg" bold style={{ marginBottom: '20px' }}>
         👏 수고하셨습니다.
       </Atom.Text>
       <Quiz.ResultChart correctCount={correctCount} inCorrectCount={inCorrectCount} />
       <ButtonContainer>
+        <Atom.Button onClick={() => navigate(routeTable.CHECK_NOTE.path)}>✏️ 오답 노트</Atom.Button>
         <Atom.Button onClick={handleClickNewStart}>새로운 퀴즈 풀기</Atom.Button>
       </ButtonContainer>
-    </>
+    </div>
   )
 }
 
@@ -60,4 +57,5 @@ const ButtonContainer = styled.div`
   margin-top: 20px;
   display: flex;
   justify-content: center;
+  gap: 10px;
 `
