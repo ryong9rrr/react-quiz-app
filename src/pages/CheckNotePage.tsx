@@ -1,6 +1,7 @@
 import React from 'react'
 import { useNavigate } from 'react-router-dom'
 
+import styled from '@emotion/styled'
 import { useQuiz } from '@/hooks'
 import { useQuizDispatch, QuizActions } from '@/store/quizSlice'
 import * as Atom from '@/components/atom'
@@ -40,11 +41,20 @@ export default function CheckNotePage() {
 
   return (
     <div style={{ marginTop: '20px' }}>
-      <Atom.Text size="xlg" bold>
-        📝 오답 노트
-      </Atom.Text>
+      <Title>
+        <Atom.Text size="xlg" bold>
+          📝 오답 노트
+        </Atom.Text>
+        <Atom.Button onClick={() => navigate(routeTable.RESULT.path)}>📊 차트 보기</Atom.Button>
+      </Title>
       <Atom.Spacer height={20} />
       <Quiz.CheckNote solvedQuizList={solvedQuizList} />
     </div>
   )
 }
+
+const Title = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 15px;
+`
