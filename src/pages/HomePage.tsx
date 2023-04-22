@@ -20,7 +20,12 @@ export default function HomePage() {
     setLoading(true)
     try {
       const quizResponse = await QuizApi.generateQuiz()
-      dispatch(QuizActions.startQuiz(quizResponse))
+      dispatch(
+        QuizActions.startQuiz({
+          quizResponse,
+          startTime: Date.now(),
+        }),
+      )
       navigate(routeTable.QUIZ.path)
     } catch (e) {
       setError(true)

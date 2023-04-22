@@ -5,7 +5,9 @@ import quizListDataJson from '@/mocks/quizList.json'
 import { modelBuilder } from '@/models/Quiz'
 import { GenerateQuizResponse } from '@/apis/quizApi.types'
 
-const InitState = {
+const InitState: QuizState = {
+  startTime: 0,
+  endTime: 0,
   currentQuiz: null,
   quizList: [],
   solvedQuizList: [],
@@ -16,24 +18,11 @@ describe('quiz reducer unit test', () => {
     expect(reducer(undefined, { type: undefined })).toEqual(InitState)
   })
 
-  test('preFetch()', () => {
-    const { quizList, currentQuiz } = mockQuiz(0)
-    const latestState: QuizState = {
-      currentQuiz,
-      quizList,
-      solvedQuizList: [],
-    }
-
-    expect(reducer(undefined, Actions.preFetch(latestState))).toEqual({
-      currentQuiz,
-      quizList,
-      solvedQuizList: [],
-    })
-  })
-
   test('initialize()', () => {
     const { quizList, currentQuiz } = mockQuiz(0)
     const prevState: QuizState = {
+      startTime: 0,
+      endTime: 0,
       currentQuiz,
       quizList,
       solvedQuizList: [],
@@ -44,24 +33,44 @@ describe('quiz reducer unit test', () => {
 
   test('startQuiz()', () => {
     const { quizList, currentQuiz } = mockQuiz(0)
-    expect(reducer(InitState, Actions.startQuiz(quizListDataJson as GenerateQuizResponse))).toEqual(
-      {
-        currentQuiz,
-        quizList,
-        solvedQuizList: [],
-      },
-    )
+    expect(
+      reducer(
+        InitState,
+        Actions.startQuiz({
+          quizResponse: quizListDataJson as GenerateQuizResponse,
+          startTime: 0,
+        }),
+      ),
+    ).toEqual({
+      startTime: 0,
+      endTime: 0,
+      currentQuiz,
+      quizList,
+      solvedQuizList: [],
+    })
   })
 
   test('solveQuiz() : 불러온 퀴즈가 없다면 에러를 반환한다.', () => {
     expect(() => {
-      reducer(InitState, Actions.solveQuiz('user answer'))
+      reducer(
+        InitState,
+        Actions.solveQuiz({
+          selectedAnswerByUser: 'user answer',
+          endTime: 0,
+        }),
+      )
     }).toThrow('불러온 퀴즈가 없거나 풀고 있는 퀴즈가 없어서 액션을 실행할 수 없습니다.')
   })
 
   test('solveQuiz() : 풀고 있는 퀴즈가 없다면 에러를 반환한다.', () => {
     expect(() => {
-      reducer(InitState, Actions.solveQuiz('user answer'))
+      reducer(
+        InitState,
+        Actions.solveQuiz({
+          selectedAnswerByUser: 'user answer',
+          endTime: 0,
+        }),
+      )
     }).toThrow('불러온 퀴즈가 없거나 풀고 있는 퀴즈가 없어서 액션을 실행할 수 없습니다.')
   })
 
@@ -74,14 +83,28 @@ describe('quiz reducer unit test', () => {
     const lastQuiz = quizList[quizList.length - 1]
 
     const state: QuizState = {
+      startTime: 0,
+      endTime: 0,
       currentQuiz: lastQuiz,
       quizList,
       solvedQuizList,
     }
 
-    const nextState = reducer(state, Actions.solveQuiz('user answer'))
+    const nextState = reducer(
+      state,
+      Actions.solveQuiz({
+        selectedAnswerByUser: 'user answer',
+        endTime: 0,
+      }),
+    )
     expect(() => {
-      reducer(nextState, Actions.solveQuiz('user answer'))
+      reducer(
+        nextState,
+        Actions.solveQuiz({
+          selectedAnswerByUser: 'user answer',
+          endTime: 0,
+        }),
+      )
     }).not.toThrow('퀴즈를 모두 풀어서 액션을 실행할 수 없습니다.')
   })
 })

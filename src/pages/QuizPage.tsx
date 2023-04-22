@@ -19,7 +19,12 @@ export default function QuizPage() {
   }
 
   const handleSolve = (userAnswer: string) => {
-    dispatch(QuizActions.solveQuiz(userAnswer))
+    dispatch(
+      QuizActions.solveQuiz({
+        selectedAnswerByUser: userAnswer,
+        endTime: Date.now(),
+      }),
+    )
     if (currentQuizNumber === quizListLength) {
       navigate(routeTable.RESULT.path)
     }

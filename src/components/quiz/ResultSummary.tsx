@@ -5,20 +5,17 @@ import styled from '@emotion/styled'
 import { routeTable } from '@/routes'
 import * as Atom from '@/components/atom'
 import { PALETTE } from '@/styles/theme'
-
-// type Time = {
-//   hour: number
-//   min: number
-//   sec: number
-// }
+import { convertTimeDiff } from '@/lib/utils'
 
 interface Props {
   correctCount: number
   inCorrectCount: number
+  timeDiff: number
 }
 
-export default function QuizResult({ correctCount, inCorrectCount }: Props) {
+export default function QuizResult({ correctCount, inCorrectCount, timeDiff }: Props) {
   const navigate = useNavigate()
+  const { hour, min, sec } = convertTimeDiff(timeDiff)
 
   const handleClickCheckNote = () => {
     navigate(routeTable.CHECK_NOTE.path)
@@ -37,7 +34,9 @@ export default function QuizResult({ correctCount, inCorrectCount }: Props) {
           </Atom.Button>
         </li>
         <li>맞은 문제 : {correctCount}개</li>
-        <li>소요 시간 : 0 시간 0 분 0초</li>
+        <li>
+          소요 시간 : {hour} 시간 {min} 분 {sec}초
+        </li>
       </Container>
     </>
   )

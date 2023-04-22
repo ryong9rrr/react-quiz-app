@@ -15,6 +15,8 @@ describe('QuizPage test', () => {
     const { quizList, currentQuiz } = mockQuiz(2)
     const state: RootState = {
       quiz: {
+        startTime: 0,
+        endTime: 0,
         currentQuiz,
         quizList,
         solvedQuizList: [],
@@ -28,6 +30,8 @@ describe('QuizPage test', () => {
   test("퀴즈를 모두 풀었다면 '퀴즈를 모두 풀었어요'를 보여준다.", () => {
     const state: RootState = {
       quiz: {
+        startTime: 0,
+        endTime: 0,
         currentQuiz: null,
         quizList: [],
         solvedQuizList: [],

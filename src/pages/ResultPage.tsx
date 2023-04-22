@@ -11,7 +11,8 @@ import { useQuiz } from '@/hooks'
 export default function ResultPage() {
   const navigate = useNavigate()
   const dispatch = useQuizDispatch()
-  const { isClear, isSolving, isNotStart, correctCount, inCorrectCount } = useQuiz()
+  const { isClear, isSolving, isNotStart, correctCount, inCorrectCount, startTime, endTime } =
+    useQuiz()
 
   const handleClickNewStart = () => {
     dispatch(QuizActions.initialize())
@@ -44,7 +45,11 @@ export default function ResultPage() {
       <Atom.Text size="xlg" bold style={{ marginBottom: '20px' }}>
         👏 수고하셨습니다.
       </Atom.Text>
-      <Quiz.ResultSummary inCorrectCount={inCorrectCount} correctCount={correctCount} />
+      <Quiz.ResultSummary
+        inCorrectCount={inCorrectCount}
+        correctCount={correctCount}
+        timeDiff={endTime - startTime}
+      />
       <Quiz.ResultChart correctCount={correctCount} inCorrectCount={inCorrectCount} />
       <ButtonContainer>
         <Atom.Button onClick={handleClickNewStart}>새로운 퀴즈 풀기</Atom.Button>

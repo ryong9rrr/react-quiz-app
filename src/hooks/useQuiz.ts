@@ -27,11 +27,9 @@ export default function useQuiz() {
     progressBarPercent,
     currentQuizNumber,
     quizListLength,
-    currentQuiz,
     isNotStart,
     correctCount,
     inCorrectCount,
-    quizList,
-    solvedQuizList,
+    ...quizState,
   }
 }

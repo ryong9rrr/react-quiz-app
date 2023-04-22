@@ -20,6 +20,8 @@ describe('HomePage test', () => {
     const { currentQuiz, quizList } = mockQuiz(0)
     const state: RootState = {
       quiz: {
+        startTime: 0,
+        endTime: 0,
         currentQuiz,
         quizList,
         solvedQuizList: [],
@@ -68,6 +70,8 @@ describe('HomePage test', () => {
     const { quizList } = mockQuiz(0)
     const state: RootState = {
       quiz: {
+        startTime: 0,
+        endTime: 0,
         currentQuiz: null,
         quizList,
         solvedQuizList: [],
