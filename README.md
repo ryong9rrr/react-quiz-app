@@ -8,11 +8,9 @@
 
 ## 🛠️ 주요 기술 스택
 
-- `react-typescript(Vite)`
+- `react-typescript(Vite)` `eslint` `prettier`
 
 - `react-router-dom` `emotion` `Chart.js` `redux-toolkit`
-
-- `eslint` `prettier`
 
 - `Jest(Vitest)` `react-testing-library` `msw`
 
