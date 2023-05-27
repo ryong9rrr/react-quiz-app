@@ -4,7 +4,7 @@ import styled from '@emotion/styled'
 import * as Atom from '@/components/atom'
 import { PALETTE } from '@/styles/theme'
 import { useQuizDispatch, QuizActions } from '@/store/quizSlice'
-import * as QuizApi from '@/apis/quizApi'
+import * as QuizApi from '@/apis/quiz'
 import { useQuiz } from '@/hooks'
 import { useRouter } from './routing'
 

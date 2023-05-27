@@ -1,5 +1,5 @@
-import { QuizResponseType, GenerateQuizResponse } from '@/apis/quizApi.types'
-import { decodeString } from '@/lib/utils'
+import { decodeString } from '@/_lib/utils'
+import { GenerateQuizResponse, QuizResponseType } from '@/apis/quiz'
 
 export type Quiz = QuizResponseType & {
   number: number

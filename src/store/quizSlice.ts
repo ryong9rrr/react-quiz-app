@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux'
 
 import { AppDispatch, RootState } from '.'
 import { Quiz, SolvedQuiz, modelBuilder } from '@/models/Quiz'
-import { GenerateQuizResponse } from '@/apis/quizApi.types'
+import { GenerateQuizResponse } from '@/apis/quiz'
 
 export interface QuizState {
   startTime: number

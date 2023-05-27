@@ -3,7 +3,7 @@ import styled from '@emotion/styled'
 
 import * as Atom from '@/components/atom'
 import { PALETTE } from '@/styles/theme'
-import { convertTimeDiff } from '@/lib/utils'
+import { convertTimeDiff } from '@/_lib/utils'
 import { useRouter } from '@/pages/routing'
 
 interface Props {
