@@ -1,14 +1,13 @@
 import React, { Suspense } from 'react'
 import styled from '@emotion/styled'
-import { useNavigate } from 'react-router-dom'
 
 import * as Atom from '@/components/atom'
-import { routeTable } from '@/routes'
+import { useRouter } from './routing'
 
 const NotFound = React.lazy(() => import('@/components/NotFound'))
 
 export default function NotFoundPage() {
-  const navigate = useNavigate()
+  const router = useRouter()
 
   return (
     <>
@@ -17,7 +16,7 @@ export default function NotFoundPage() {
       </Suspense>
       <Texts>
         <Atom.Text size="lg">존재하지 않는 페이지입니다.</Atom.Text>
-        <Atom.Button onClick={() => navigate(routeTable.HOME.path)}>홈으로</Atom.Button>
+        <Atom.Button onClick={() => router.push('/')}>홈으로</Atom.Button>
       </Texts>
     </>
   )

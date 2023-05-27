@@ -1,18 +1,17 @@
 import React, { useState } from 'react'
 import styled from '@emotion/styled'
-import { useNavigate } from 'react-router-dom'
 
 import * as Atom from '@/components/atom'
 import { PALETTE } from '@/styles/theme'
-import { routeTable } from '@/routes'
 import { useQuizDispatch, QuizActions } from '@/store/quizSlice'
 import * as QuizApi from '@/apis/quizApi'
 import { useQuiz } from '@/hooks'
+import { useRouter } from './routing'
 
 export default function HomePage() {
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState(false)
-  const navigate = useNavigate()
+  const router = useRouter()
   const dispatch = useQuizDispatch()
   const { isClear, isSolving } = useQuiz()
 
@@ -26,7 +25,7 @@ export default function HomePage() {
           startTime: Date.now(),
         }),
       )
-      navigate(routeTable.QUIZ.path)
+      router.push('/quiz')
     } catch (e) {
       setError(true)
     }
@@ -58,7 +57,7 @@ export default function HomePage() {
   if (isSolving) {
     return (
       <Atom.Prompt text="이미 풀고 있는 퀴즈가 있습니다." style={{ marginTop: '150px' }}>
-        <Atom.Button size="lg" onClick={() => navigate(routeTable.QUIZ.path)}>
+        <Atom.Button size="lg" onClick={() => router.push('/quiz')}>
           이어서 풀기
         </Atom.Button>
         <Atom.Button size="lg" onClick={() => dispatch(QuizActions.initialize())}>
@@ -71,7 +70,7 @@ export default function HomePage() {
   if (isClear) {
     return (
       <Atom.Prompt text="퀴즈를 모두 풀었어요." style={{ marginTop: '150px' }}>
-        <Atom.Button size="lg" onClick={() => navigate(routeTable.RESULT.path)}>
+        <Atom.Button size="lg" onClick={() => router.push('/result')}>
           결과 보기
         </Atom.Button>
         <Atom.Button size="lg" onClick={() => dispatch(QuizActions.initialize())}>

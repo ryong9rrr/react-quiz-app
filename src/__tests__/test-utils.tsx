@@ -6,9 +6,9 @@ import type { PreloadedState } from '@reduxjs/toolkit'
 
 import quizListDataJson from '@/mocks/quizList.json'
 import { AppStore, RootState, setupStore } from '@/store'
-import { routeTable, Router } from '@/routes'
 import { GenerateQuizResponse } from '@/apis/quizApi.types'
 import { modelBuilder } from '@/models/Quiz'
+import { Routes } from '@/pages/Routes'
 
 interface ExtendedRenderOptions extends Omit<RenderOptions, 'queries'> {
   preloadedState?: PreloadedState<RootState>
@@ -40,20 +40,20 @@ export const renderWithRouter = () =>
       <nav>
         <ul>
           <li>
-            <Link to={routeTable.HOME.path}>go_Home</Link>
+            <Link to="/">go_Home</Link>
           </li>
           <li>
-            <Link to={routeTable.QUIZ.path}>go_Quiz</Link>
+            <Link to="/quiz">go_Quiz</Link>
           </li>
           <li>
-            <Link to={routeTable.RESULT.path}>go_Result</Link>
+            <Link to="/result">go_Result</Link>
           </li>
           <li>
-            <Link to={routeTable.CHECK_NOTE.path}>go_CheckNote</Link>
+            <Link to="/check-note">go_CheckNote</Link>
           </li>
         </ul>
       </nav>
-      <Router />
+      <Routes />
     </>,
   )
 

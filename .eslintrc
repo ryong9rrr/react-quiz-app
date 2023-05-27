@@ -23,7 +23,7 @@
     "camelcase": "warn",
     "lines-between-class-members": "off",
     "no-underscore-dangle": "off",
-    "no-use-before-define": "warn",
+    "no-use-before-define": "off",
     "no-param-reassign": "warn",
     "arrow-body-style": "off",
     "import/prefer-default-export": "off",

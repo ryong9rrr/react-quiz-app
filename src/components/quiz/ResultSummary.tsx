@@ -1,11 +1,10 @@
 import React from 'react'
-import { useNavigate } from 'react-router-dom'
 import styled from '@emotion/styled'
 
-import { routeTable } from '@/routes'
 import * as Atom from '@/components/atom'
 import { PALETTE } from '@/styles/theme'
 import { convertTimeDiff } from '@/lib/utils'
+import { useRouter } from '@/pages/routing'
 
 interface Props {
   correctCount: number
@@ -14,11 +13,11 @@ interface Props {
 }
 
 export default function QuizResult({ correctCount, inCorrectCount, timeDiff }: Props) {
-  const navigate = useNavigate()
+  const router = useRouter()
   const { hour, min, sec } = convertTimeDiff(timeDiff)
 
   const handleClickCheckNote = () => {
-    navigate(routeTable.CHECK_NOTE.path)
+    router.push('/check-note')
   }
 
   return (
