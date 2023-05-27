@@ -4,7 +4,7 @@ import styled from '@emotion/styled'
 import redCheck from '@/assets/redCheck.svg'
 import * as Atom from '@/components/atom'
 import { SolvedQuiz } from '@/models/Quiz'
-import { PALETTE } from '@/styles/theme'
+import { Colors } from '@/_lib/constants/theme'
 
 function QuizOption({
   text,
@@ -70,7 +70,7 @@ const Container = styled.ul`
 const Item = styled.li`
   position: relative;
   box-sizing: border-box;
-  border: 1px solid ${PALETTE.green[2]};
+  border: 1px solid ${Colors.green300};
   border-radius: 8px;
   padding: 16px;
   display: flex;

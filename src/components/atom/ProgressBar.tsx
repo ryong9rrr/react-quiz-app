@@ -1,7 +1,7 @@
 import React from 'react'
 import styled from '@emotion/styled'
 
-import { PALETTE } from '@/styles/theme'
+import { Colors } from '@/_lib/constants/theme'
 
 interface Props {
   value: number
@@ -30,7 +30,7 @@ const Rail = styled.div<Pick<Props, 'height'>>`
   width: 100%;
   height: ${({ height }) => height}px;
   border-radius: 2px;
-  background-color: ${PALETTE.green[1]};
+  background-color: ${Colors.green200};
 `
 
 const Track = styled.div<Pick<Props, 'height'>>`
@@ -40,7 +40,7 @@ const Track = styled.div<Pick<Props, 'height'>>`
   width: 0;
   height: ${({ height }) => height}px;
   border-radius: 2px;
-  background-color: ${PALETTE.green[2]};
+  background-color: ${Colors.green300};
   background-size: 20px 20px;
   background-image: linear-gradient(
     45deg,

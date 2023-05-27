@@ -12,7 +12,7 @@ import { Bar } from 'react-chartjs-2'
 import styled from '@emotion/styled'
 
 import * as Atom from '@/components/atom'
-import { PALETTE } from '@/styles/theme'
+import { Colors } from '@/_lib/constants/theme'
 
 ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend)
 
@@ -22,12 +22,12 @@ const makeData = (inCorrectCount: number, correctCount: number) => ({
     {
       label: '틀린 문제',
       data: [inCorrectCount],
-      backgroundColor: PALETTE.red,
+      backgroundColor: Colors.red,
     },
     {
       label: '맞은 문제',
       data: [correctCount],
-      backgroundColor: PALETTE.blue,
+      backgroundColor: Colors.blue,
     },
   ],
 })
@@ -53,7 +53,7 @@ export default function QuizChart({ inCorrectCount, correctCount }: Props) {
 }
 
 const Container = styled.section`
-  border: 1px solid ${PALETTE.green[1]};
+  border: 1px solid ${Colors.green200};
   border-radius: 8px;
   padding: 16px;
   display: flex;

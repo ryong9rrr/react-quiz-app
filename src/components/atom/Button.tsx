@@ -1,10 +1,10 @@
 import styled from '@emotion/styled'
 import React, { ButtonHTMLAttributes } from 'react'
-import { FONT_SIZE, PALETTE } from '@/styles/theme'
+import { FontSize, Colors } from '@/_lib/constants/theme'
 
 interface Props extends ButtonHTMLAttributes<HTMLButtonElement> {
   children: React.ReactNode
-  size?: keyof typeof FONT_SIZE
+  size?: keyof typeof FontSize
 }
 
 export default function Button({ children, ...props }: Props) {
@@ -17,17 +17,17 @@ export default function Button({ children, ...props }: Props) {
 
 const StyledButton = styled.button<Props>`
   padding: 8px 16px;
-  border: 1px solid ${PALETTE.green[1]};
+  border: 1px solid ${Colors.green200};
   border-radius: 4px;
   background-color: inherit;
-  font-size: ${({ size }) => FONT_SIZE[size || 'sm']}px;
+  font-size: ${({ size }) => FontSize[size || 'sm']}px;
   font-weight: 600;
-  color: ${PALETTE.green[1]};
+  color: ${Colors.green200};
   cursor: pointer;
 
   &:hover {
-    background-color: ${PALETTE.green[2]};
-    color: ${PALETTE.white};
+    background-color: ${Colors.green300};
+    color: ${Colors.white};
   }
 
   &:disabled,

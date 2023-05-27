@@ -4,7 +4,7 @@ import styled from '@emotion/styled'
 import * as Atom from '@/components/atom'
 import { useQuizSelect } from '@/hooks'
 import { Quiz } from '@/models/Quiz'
-import { PALETTE } from '@/styles/theme'
+import { Colors } from '@/_lib/constants/theme'
 
 interface Props {
   currentQuiz: Quiz
@@ -64,7 +64,7 @@ const Container = styled.div`
 const Feedback = styled.div<{ isCorrect: boolean }>`
   margin: 30px auto;
   max-width: 200px;
-  border: 2px solid ${({ isCorrect }) => (isCorrect ? PALETTE.green[1] : PALETTE.red)};
+  border: 2px solid ${({ isCorrect }) => (isCorrect ? Colors.green200 : Colors.red)};
   border-radius: 8px;
   padding: 16px;
   display: flex;

@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import styled from '@emotion/styled'
 
 import * as Atom from '@/components/atom'
-import { PALETTE } from '@/styles/theme'
+import { Colors } from '@/_lib/constants/theme'
 import { useQuizDispatch, QuizActions } from '@/store/quizSlice'
 import * as QuizApi from '@/apis/quiz'
 import { useQuiz } from '@/hooks'
@@ -95,7 +95,7 @@ export default function HomePage() {
 const Container = styled.div`
   margin-top: 150px;
   padding: 24px;
-  border: 2px solid ${PALETTE.green[1]};
+  border: 2px solid ${Colors.green200};
   border-radius: 8px;
   display: flex;
   align-items: center;

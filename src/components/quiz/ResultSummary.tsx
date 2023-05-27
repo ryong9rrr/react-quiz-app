@@ -2,7 +2,7 @@ import React from 'react'
 import styled from '@emotion/styled'
 
 import * as Atom from '@/components/atom'
-import { PALETTE } from '@/styles/theme'
+import { Colors } from '@/_lib/constants/theme'
 import { convertTimeDiff } from '@/_lib/utils'
 import { useRouter } from '@/pages/routing'
 
@@ -42,7 +42,7 @@ export default function QuizResult({ correctCount, inCorrectCount, timeDiff }: P
 }
 
 const Container = styled.ul`
-  border: 1px solid ${PALETTE.green[1]};
+  border: 1px solid ${Colors.green200};
   border-radius: 8px;
   padding: 4px 16px;
   display: flex;

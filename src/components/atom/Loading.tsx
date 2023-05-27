@@ -1,7 +1,7 @@
 import React from 'react'
 import styled from '@emotion/styled'
 
-import { PALETTE } from '@/styles/theme'
+import { Colors } from '@/_lib/constants/theme'
 
 export default function Loading() {
   return (
@@ -25,7 +25,7 @@ const Container = styled.div`
     width: 13px;
     height: 13px;
     border-radius: 50%;
-    background: ${PALETTE.green[1]};
+    background: ${Colors.green200};
     animation-timing-function: cubic-bezier(0, 1, 1, 0);
   }
 
