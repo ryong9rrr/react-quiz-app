@@ -1,7 +1,7 @@
 import React from 'react'
 import { fireEvent, render, screen } from '@testing-library/react'
 
-import { mockQuiz } from '@/__tests__/test-utils'
+import { mockQuiz } from '@/test-utils'
 
 import QuizSelect from './QuizSelect'
 

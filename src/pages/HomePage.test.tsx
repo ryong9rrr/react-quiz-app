@@ -2,8 +2,8 @@ import React from 'react'
 import { fireEvent, screen, waitFor } from '@testing-library/react'
 
 import HomePage from '@/pages/HomePage'
-import { mockQuiz, renderWithProviders, renderWithRouter } from '@/__tests__/test-utils'
-import { server, handlers } from '@/mocks/quizHandlers'
+import { mockQuiz, renderWithProviders, renderWithRouter } from '@/test-utils'
+import { server, handlers } from '@/_lib/server/handlers'
 import { RootState } from '@/store'
 
 beforeAll(() => server.listen())

@@ -1,7 +1,7 @@
 import React from 'react'
 import { screen } from '@testing-library/react'
 
-import { mockQuiz, renderWithProviders } from '@/__tests__/test-utils'
+import { mockQuiz, renderWithProviders } from '@/test-utils'
 import QuizPage from './QuizPage'
 import { RootState } from '@/store'
 

@@ -4,11 +4,11 @@ import { render, RenderOptions } from '@testing-library/react'
 import { Provider } from 'react-redux'
 import type { PreloadedState } from '@reduxjs/toolkit'
 
-import quizListDataJson from '@/mocks/quizList.json'
+import quizListDataJson from './_lib/server/data/quizList.json'
 import { AppStore, RootState, setupStore } from '@/store'
-import { GenerateQuizResponse } from '@/apis/quizApi.types'
 import { modelBuilder } from '@/models/Quiz'
 import { Routes } from '@/pages/Routes'
+import { GenerateQuizResponse } from '@/apis/quiz'
 
 interface ExtendedRenderOptions extends Omit<RenderOptions, 'queries'> {
   preloadedState?: PreloadedState<RootState>

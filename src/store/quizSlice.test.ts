@@ -1,8 +1,8 @@
 import { QuizActions as Actions, QuizState, quizReducer as reducer } from './quizSlice'
 
-import { mockQuiz } from '@/__tests__/test-utils'
+import { mockQuiz } from '@/test-utils'
 import { GenerateQuizResponse } from '@/apis/quiz'
-import quizListDataJson from '@/mocks/quizList.json'
+import quizListDataJson from '../_lib/server/data/quizList.json'
 import { modelBuilder } from '@/models/Quiz'
 
 const InitState: QuizState = {
