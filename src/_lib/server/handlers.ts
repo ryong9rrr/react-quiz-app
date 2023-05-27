@@ -1,17 +1,11 @@
 // src/mocks/handlers.js
 import { rest } from 'msw'
-import { setupServer } from 'msw/node'
-import quizListResponseMock from './data/quizList.json'
+import { quizList } from './data/quiz'
 
-const { VITE_QUIZ_API_END_POINT } = import.meta.env
-
-export const handlers = {
-  generateQuizForSuccess: rest.get(VITE_QUIZ_API_END_POINT, (req, res, ctx) => {
-    return res(ctx.json(quizListResponseMock), ctx.delay(150))
-  }),
-  generateQuizForError: rest.get(VITE_QUIZ_API_END_POINT, (req, res, ctx) => {
-    return res(ctx.status(400))
-  }),
+export function handlers() {
+  return [rest.get('/', getQuizList)]
 }
 
-export const server = setupServer(...Object.values(handlers))
+const getQuizList: Parameters<typeof rest.get>[1] = (req, res, ctx) => {
+  return res(ctx.json(quizList), ctx.delay(1500))
+}
