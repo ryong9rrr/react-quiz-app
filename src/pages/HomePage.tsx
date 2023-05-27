@@ -7,6 +7,7 @@ import { useQuizDispatch, QuizActions } from '@/store/quizSlice'
 import * as QuizApi from '@/apis/quiz'
 import { useQuiz } from '@/hooks'
 import { useRouter } from './routing'
+import { PageContainer } from './PageContainer'
 
 export default function HomePage() {
   const [loading, setLoading] = useState(false)
@@ -34,65 +35,75 @@ export default function HomePage() {
 
   if (loading) {
     return (
-      <Container>
-        <Atom.Loading />
-        <Atom.Text>퀴즈를 생성 중입니다...</Atom.Text>
-      </Container>
+      <PageContainer title="홈">
+        <Wrapper>
+          <Atom.Loading />
+          <Atom.Text>퀴즈를 생성 중입니다...</Atom.Text>
+        </Wrapper>
+      </PageContainer>
     )
   }
 
   if (error) {
     return (
-      <Atom.Prompt
-        text="퀴즈를 불러오는데 실패했습니다. 다시 시도해주세요."
-        style={{ marginTop: '150px' }}
-      >
-        <Atom.Button size="lg" onClick={handleClickStart}>
-          다시 시도
-        </Atom.Button>
-      </Atom.Prompt>
+      <PageContainer title="홈">
+        <Atom.Prompt
+          text="퀴즈를 불러오는데 실패했습니다. 다시 시도해주세요."
+          style={{ marginTop: '150px' }}
+        >
+          <Atom.Button size="lg" onClick={handleClickStart}>
+            다시 시도
+          </Atom.Button>
+        </Atom.Prompt>
+      </PageContainer>
     )
   }
 
   if (isSolving) {
     return (
-      <Atom.Prompt text="이미 풀고 있는 퀴즈가 있습니다." style={{ marginTop: '150px' }}>
-        <Atom.Button size="lg" onClick={() => router.push('/quiz')}>
-          이어서 풀기
-        </Atom.Button>
-        <Atom.Button size="lg" onClick={() => dispatch(QuizActions.initialize())}>
-          새롭게 시작하기
-        </Atom.Button>
-      </Atom.Prompt>
+      <PageContainer title="홈">
+        <Atom.Prompt text="이미 풀고 있는 퀴즈가 있습니다." style={{ marginTop: '150px' }}>
+          <Atom.Button size="lg" onClick={() => router.push('/quiz')}>
+            이어서 풀기
+          </Atom.Button>
+          <Atom.Button size="lg" onClick={() => dispatch(QuizActions.initialize())}>
+            새롭게 시작하기
+          </Atom.Button>
+        </Atom.Prompt>
+      </PageContainer>
     )
   }
 
   if (isClear) {
     return (
-      <Atom.Prompt text="퀴즈를 모두 풀었어요." style={{ marginTop: '150px' }}>
-        <Atom.Button size="lg" onClick={() => router.push('/result')}>
-          결과 보기
-        </Atom.Button>
-        <Atom.Button size="lg" onClick={() => dispatch(QuizActions.initialize())}>
-          새롭게 시작하기
-        </Atom.Button>
-      </Atom.Prompt>
+      <PageContainer title="홈">
+        <Atom.Prompt text="퀴즈를 모두 풀었어요." style={{ marginTop: '150px' }}>
+          <Atom.Button size="lg" onClick={() => router.push('/result')}>
+            결과 보기
+          </Atom.Button>
+          <Atom.Button size="lg" onClick={() => dispatch(QuizActions.initialize())}>
+            새롭게 시작하기
+          </Atom.Button>
+        </Atom.Prompt>
+      </PageContainer>
     )
   }
 
   return (
-    <Container>
-      <Atom.Text size="xlg" style={{ margin: '16px 0' }}>
-        퀴즈를 시작해볼까요?
-      </Atom.Text>
-      <Atom.Button size="lg" onClick={handleClickStart}>
-        START
-      </Atom.Button>
-    </Container>
+    <PageContainer title="홈">
+      <Wrapper>
+        <Atom.Text size="xlg" style={{ margin: '16px 0' }}>
+          퀴즈를 시작해볼까요?
+        </Atom.Text>
+        <Atom.Button size="lg" onClick={handleClickStart}>
+          START
+        </Atom.Button>
+      </Wrapper>
+    </PageContainer>
   )
 }
 
-const Container = styled.div`
+const Wrapper = styled.div`
   margin-top: 150px;
   padding: 24px;
   border: 2px solid ${Colors.green200};
