@@ -15,19 +15,16 @@ const rootReducer = combineReducers({
 
 const persisedReducer = persistReducer(persistConfig, rootReducer)
 
-export const setupStore = (preloadedState?: PreloadedState<RootState>) => {
-  return configureStore({
-    reducer: persisedReducer,
-    preloadedState,
-    middleware: (getDefaultMiddleware) =>
-      getDefaultMiddleware({
-        serializableCheck: {
-          ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
-        },
-      }),
-  })
-}
+export const store = configureStore({
+  reducer: persisedReducer,
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware({
+      serializableCheck: {
+        ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
+      },
+    }),
+})
 
 export type RootState = ReturnType<typeof rootReducer>
-export type AppStore = ReturnType<typeof setupStore>
+export type AppStore = typeof store
 export type AppDispatch = AppStore['dispatch']

@@ -22,7 +22,7 @@ export default function ResultPage() {
   if (isNotStart) {
     return (
       <PageContainer title="결과">
-        <Atom.Prompt text="✋ 풀고 있는 퀴즈가 없어요." style={{ marginTop: '150px' }}>
+        <Atom.Prompt text="✋ 풀고 있는 퀴즈가 없어요!" style={{ marginTop: '150px' }}>
           <Atom.Button onClick={() => router.push('/')}>홈으로</Atom.Button>
         </Atom.Prompt>
       </PageContainer>

@@ -67,7 +67,7 @@ export default function HomePage() {
             이어서 풀기
           </Atom.Button>
           <Atom.Button size="lg" onClick={() => dispatch(QuizActions.initialize())}>
-            새롭게 시작하기
+            새로운 퀴즈 풀기
           </Atom.Button>
         </Atom.Prompt>
       </PageContainer>
@@ -82,7 +82,7 @@ export default function HomePage() {
             결과 보기
           </Atom.Button>
           <Atom.Button size="lg" onClick={() => dispatch(QuizActions.initialize())}>
-            새롭게 시작하기
+            새로운 퀴즈 풀기
           </Atom.Button>
         </Atom.Prompt>
       </PageContainer>

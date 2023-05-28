@@ -7,5 +7,5 @@ export function handlers() {
 }
 
 const getQuizList: Parameters<typeof rest.get>[1] = (req, res, ctx) => {
-  return res(ctx.json(quizList), ctx.delay(1500))
+  return res(ctx.json(quizList), ctx.delay(500))
 }

@@ -9,7 +9,8 @@ export default defineConfig({
   test: {
     globals: true,
     environment: 'jsdom',
-    setupFiles: './setupTests.ts',
+    setupFiles: './jest.setup.js',
+    testTimeout: 10000,
   },
   resolve: {
     alias: {
