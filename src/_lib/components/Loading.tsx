@@ -1,21 +1,24 @@
 import React from 'react'
 import styled from '@emotion/styled'
-
 import { Colors } from '@/_lib/constants/theme'
 
-export default function Loading() {
+interface Props {
+  block?: boolean
+}
+
+export default function Loading({ block = false }: Props) {
   return (
-    <Container>
+    <StyledLoading block={block}>
       <div />
       <div />
       <div />
       <div />
-    </Container>
+    </StyledLoading>
   )
 }
 
-const Container = styled.div`
-  display: inline-block;
+const StyledLoading = styled.div<{ block: boolean }>`
+  display: ${({ block }) => (block ? 'block' : 'inline-block')};
   position: relative;
   width: 80px;
   height: 80px;

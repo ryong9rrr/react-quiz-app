@@ -1,5 +1,5 @@
-import styled from '@emotion/styled'
 import React, { ButtonHTMLAttributes } from 'react'
+import styled from '@emotion/styled'
 import { FontSize, Colors } from '@/_lib/constants/theme'
 
 interface Props extends ButtonHTMLAttributes<HTMLButtonElement> {
@@ -7,20 +7,21 @@ interface Props extends ButtonHTMLAttributes<HTMLButtonElement> {
   size?: keyof typeof FontSize
 }
 
-export default function Button({ children, ...props }: Props) {
+export default function Button({ children, size = 'md', ...rest }: Props) {
   return (
-    <StyledButton type="button" {...props}>
+    <StyledButton type="button" size={size} {...rest}>
       {children}
     </StyledButton>
   )
 }
 
-const StyledButton = styled.button<Props>`
+const StyledButton = styled.button<{ size: keyof typeof FontSize }>`
+  display: block;
   padding: 8px 16px;
   border: 1px solid ${Colors.green200};
   border-radius: 4px;
   background-color: inherit;
-  font-size: ${({ size }) => FontSize[size || 'sm']}px;
+  font-size: ${({ size }) => FontSize[size]}px;
   font-weight: 600;
   color: ${Colors.green200};
   cursor: pointer;
@@ -32,8 +33,8 @@ const StyledButton = styled.button<Props>`
 
   &:disabled,
   &[disabled] {
-    border: 1px solid #999999;
-    background-color: #cccccc;
-    color: #666666;
+    border: 1px solid ${Colors.gray200};
+    background-color: ${Colors.gray100};
+    color: ${Colors.gray300};
   }
 `

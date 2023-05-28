@@ -2,9 +2,14 @@ export const Colors = {
   white: '#FAFAFA',
   red: 'rgba(255, 99, 132, 0.5)',
   blue: 'rgba(53, 162, 235, 0.5)',
+
   green100: 'rgb(98, 241, 189)',
   green200: 'rgb(0, 200, 150)',
   green300: 'rgb(12, 141, 109)',
+
+  gray100: '#cccccc',
+  gray200: '#999999',
+  gray300: '#666666',
 } as const
 
 export const FontSize = {

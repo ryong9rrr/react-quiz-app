@@ -9,16 +9,16 @@ interface Props {
   style?: CSSProperties
 }
 
-export default function Text({ children, size = 'sm', bold = false, style = {} }: Props) {
+export default function Text({ children, size = 'md', bold = false, style = {} }: Props) {
   return (
-    <Container size={size} bold={bold} style={style}>
+    <StyledText size={size} bold={bold} style={style}>
       {children}
-    </Container>
+    </StyledText>
   )
 }
 
-const Container = styled.div<Props>`
-  font-size: ${({ size }) => FontSize[size || 'md']}px;
+const StyledText = styled.div<{ size: keyof typeof FontSize; bold: boolean }>`
+  font-size: ${({ size }) => FontSize[size]}px;
   font-weight: ${({ bold }) => (bold ? '600' : '400')};
 
   display: flex;

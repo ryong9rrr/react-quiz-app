@@ -1,29 +1,28 @@
 import React from 'react'
 import styled from '@emotion/styled'
-
 import { Colors } from '@/_lib/constants/theme'
 
 interface Props {
-  value: number
+  percentage: number
   height?: number
 }
 
-export default function ProgressBar({ value, height = 30, ...props }: Props) {
+export default function ProgressBar({ percentage, height = 30 }: Props) {
   return (
-    <ProgressContainer {...props}>
+    <StyledProgressBar>
       <Rail height={height} />
-      <Track height={height} style={{ width: `${value}%` }} />
-    </ProgressContainer>
+      <Track height={height} style={{ width: `${percentage}%` }} />
+    </StyledProgressBar>
   )
 }
 
-const ProgressContainer = styled.div`
+const StyledProgressBar = styled.div`
   position: relative;
   width: 100%;
   height: 16px;
 `
 
-const Rail = styled.div<Pick<Props, 'height'>>`
+const Rail = styled.div<{ height: number }>`
   position: absolute;
   top: 6px;
   left: 0;
@@ -33,7 +32,7 @@ const Rail = styled.div<Pick<Props, 'height'>>`
   background-color: ${Colors.green200};
 `
 
-const Track = styled.div<Pick<Props, 'height'>>`
+const Track = styled.div<{ height: number }>`
   position: absolute;
   top: 6px;
   left: 0;

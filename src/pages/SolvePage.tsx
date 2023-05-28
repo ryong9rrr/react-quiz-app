@@ -1,11 +1,14 @@
 import React from 'react'
-
-import * as Atom from '@/components/atom'
-import * as Quiz from '@/components/quiz'
 import { useQuizDispatch, QuizActions } from '@/store/quizSlice'
-import { useQuiz } from '@/hooks'
 import { useRouter } from './routing'
 import { PageContainer } from './PageContainer'
+import ProgressBar from '@/_lib/components/ProgressBar'
+import Spacing from '@/_lib/components/Spacing'
+import QuizSelect from '@/components/QuizSelect'
+import useQuiz from '@/hooks/useQuiz'
+import Button from '@/_lib/components/Button'
+import Stack from '@/_lib/components/Stack'
+import Text from '@/_lib/components/Text'
 
 export default function SolvePage() {
   const router = useRouter()
@@ -33,10 +36,11 @@ export default function SolvePage() {
   if (isClear) {
     return (
       <PageContainer title="퀴즈">
-        <Atom.Prompt text="👏 퀴즈를 모두 풀었어요." style={{ marginTop: '150px' }}>
-          <Atom.Button onClick={() => router.push('/result')}>결과 보기</Atom.Button>
-          <Atom.Button onClick={handleClickNewStart}>새로운 퀴즈 풀기</Atom.Button>
-        </Atom.Prompt>
+        <Stack>
+          <Text size="xlg">👏 퀴즈를 모두 풀었어요.</Text>
+          <Button onClick={() => router.push('/result')}>결과 보기</Button>
+          <Button onClick={handleClickNewStart}>새로운 퀴즈 풀기</Button>
+        </Stack>
       </PageContainer>
     )
   }
@@ -44,9 +48,10 @@ export default function SolvePage() {
   if (!isSolving) {
     return (
       <PageContainer title="퀴즈">
-        <Atom.Prompt text="✋ 풀고 있는 퀴즈가 없어요!" style={{ marginTop: '150px' }}>
-          <Atom.Button onClick={() => router.push('/')}>홈으로</Atom.Button>
-        </Atom.Prompt>
+        <Stack>
+          <Text size="xlg">✋ 풀고 있는 퀴즈가 없어요!</Text>
+          <Button onClick={() => router.push('/')}>홈으로</Button>
+        </Stack>
       </PageContainer>
     )
   }
@@ -54,9 +59,9 @@ export default function SolvePage() {
   return (
     <PageContainer title="퀴즈">
       <div style={{ marginTop: '50px' }}>
-        <Atom.ProgressBar value={progressBarPercent} />
-        <Atom.Spacer height={20} />
-        <Quiz.QuizSelect
+        <ProgressBar percentage={progressBarPercent} />
+        <Spacing level={2} />
+        <QuizSelect
           currentQuiz={currentQuiz!}
           isLastQuiz={quizListLength === currentQuizNumber}
           handleSolve={handleSolve}

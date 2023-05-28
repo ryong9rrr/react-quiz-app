@@ -1,20 +1,4 @@
-import React from 'react'
-import Lottie from 'lottie-react'
-
-export default function NotFound() {
-  return (
-    <Lottie
-      height={400}
-      width={400}
-      loop
-      autoPlay
-      animationData={LOTTIE_DATA}
-      rendererSettings={{ preserveAspectRatio: 'xMidYMid slice' }}
-    />
-  )
-}
-
-const LOTTIE_DATA = {
+export const data = {
   v: '5.5.5',
   fr: 25,
   ip: 0,

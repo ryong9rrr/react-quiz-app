@@ -1,31 +1,28 @@
-import React, { Suspense } from 'react'
-import styled from '@emotion/styled'
-
-import * as Atom from '@/components/atom'
+import React from 'react'
+import Lottie from 'lottie-react'
+import { data } from '@/_lib/constants/notFoundLottie'
 import { useRouter } from './routing'
-
-const NotFound = React.lazy(() => import('@/components/NotFound'))
+import Text from '@/_lib/components/Text'
+import Button from '@/_lib/components/Button'
+import Stack from '@/_lib/components/Stack'
 
 export default function Page404() {
   const router = useRouter()
 
   return (
     <>
-      <Suspense>
-        <NotFound />
-      </Suspense>
-      <Texts>
-        <Atom.Text size="lg">존재하지 않는 페이지입니다.</Atom.Text>
-        <Atom.Button onClick={() => router.push('/')}>홈으로</Atom.Button>
-      </Texts>
+      <Lottie
+        height={400}
+        width={400}
+        loop
+        autoPlay
+        animationData={data}
+        rendererSettings={{ preserveAspectRatio: 'xMidYMid slice' }}
+      />
+      <Stack>
+        <Text size="lg">존재하지 않는 페이지입니다.</Text>
+        <Button onClick={() => router.push('/')}>홈으로</Button>
+      </Stack>
     </>
   )
 }
-
-const Texts = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  gap: 16px;
-`
