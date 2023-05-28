@@ -4,20 +4,35 @@ import { Colors } from '@/_lib/constants/theme'
 
 interface Props {
   children?: React.ReactNode
-  style?: CSSProperties
+  justifyContent?: CSSProperties['justifyContent']
+  alignItems?: CSSProperties['alignItems']
+  borderColor?: 'none' | string
 }
 
-export default function Stack({ children, style = {} }: Props) {
-  return <StyledStack style={{ ...style }}>{children}</StyledStack>
+export default function Stack({
+  children,
+  justifyContent = 'center',
+  alignItems = 'center',
+  borderColor = Colors.green200,
+}: Props) {
+  return (
+    <StyledStack justifyContent={justifyContent} alignItems={alignItems} borderColor={borderColor}>
+      {children}
+    </StyledStack>
+  )
 }
 
-const StyledStack = styled.div`
-  border: 2px solid ${Colors.green200};
+const StyledStack = styled.div<{
+  justifyContent: CSSProperties['justifyContent']
+  alignItems: CSSProperties['alignItems']
+  borderColor: 'none' | string
+}>`
+  border: ${({ borderColor }) => (borderColor === 'none' ? 'none' : `2px solid ${borderColor}`)};
   border-radius: 8px;
   padding: 24px;
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  align-items: center;
+  justify-content: ${({ justifyContent }) => justifyContent};
+  align-items: ${({ alignItems }) => alignItems};
   gap: 16px;
 `

@@ -2,13 +2,13 @@ import React from 'react'
 import styled from '@emotion/styled'
 
 interface Props {
-  level?: 1 | 2 | 3 | 4 | 5 | 6
+  level?: number
 }
 
-export default function Spacing({ level = 3 }: Props) {
+export default function Spacing({ level = 6 }: Props) {
   return <StyledSpacing level={level} />
 }
 
-const StyledSpacing = styled.div<{ level: 1 | 2 | 3 | 4 | 5 | 6 }>`
-  height: ${({ level }) => level * 30}px;
+const StyledSpacing = styled.div<{ level: number }>`
+  height: ${({ level }) => level * 10}px;
 `

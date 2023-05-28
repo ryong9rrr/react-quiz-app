@@ -1,6 +1,4 @@
 import React, { useState } from 'react'
-import styled from '@emotion/styled'
-import { Colors } from '@/_lib/constants/theme'
 import { useQuizDispatch, QuizActions } from '@/store/quizSlice'
 import * as QuizApi from '@/apis/quiz'
 import { useRouter } from './routing'
@@ -10,6 +8,7 @@ import Text from '@/_lib/components/Text'
 import useQuiz from '@/hooks/useQuiz'
 import Button from '@/_lib/components/Button'
 import Stack from '@/_lib/components/Stack'
+import Spacing from '@/_lib/components/Spacing'
 
 export default function HomePage() {
   const [loading, setLoading] = useState(false)
@@ -38,10 +37,11 @@ export default function HomePage() {
   if (loading) {
     return (
       <PageContainer title="홈">
-        <Wrapper>
+        <Spacing />
+        <Stack>
           <Loading />
           <Text>퀴즈를 생성 중입니다...</Text>
-        </Wrapper>
+        </Stack>
       </PageContainer>
     )
   }
@@ -49,6 +49,7 @@ export default function HomePage() {
   if (error) {
     return (
       <PageContainer title="홈">
+        <Spacing />
         <Stack>
           <Text size="xlg">퀴즈를 불러오는데 실패했습니다. 다시 시도해주세요.</Text>
           <Button size="lg" onClick={handleClickStart}>
@@ -62,6 +63,7 @@ export default function HomePage() {
   if (isSolving) {
     return (
       <PageContainer title="홈">
+        <Spacing />
         <Stack>
           <Text size="xlg">이미 풀고 있는 퀴즈가 있습니다.</Text>
           <Button size="lg" onClick={() => router.push('/solve')}>
@@ -78,6 +80,7 @@ export default function HomePage() {
   if (isClear) {
     return (
       <PageContainer title="홈">
+        <Spacing />
         <Stack>
           <Text size="xlg">퀴즈를 모두 풀었어요.</Text>
           <Button size="lg" onClick={() => router.push('/result')}>
@@ -93,26 +96,13 @@ export default function HomePage() {
 
   return (
     <PageContainer title="홈">
-      <Wrapper>
-        <Text size="xlg" style={{ margin: '16px 0' }}>
-          퀴즈를 시작해볼까요?
-        </Text>
+      <Spacing />
+      <Stack>
+        <Text size="xlg">퀴즈를 시작해볼까요?</Text>
         <Button size="lg" onClick={handleClickStart}>
           START
         </Button>
-      </Wrapper>
+      </Stack>
     </PageContainer>
   )
 }
-
-const Wrapper = styled.div`
-  margin-top: 150px;
-  padding: 24px;
-  border: 2px solid ${Colors.green200};
-  border-radius: 8px;
-  display: flex;
-  align-items: center;
-  flex-direction: column;
-  gap: 16px;
-  text-align: center;
-`

@@ -4,12 +4,12 @@ import { useQuizDispatch, QuizActions } from '@/store/quizSlice'
 import { useRouter } from './routing'
 import { PageContainer } from './PageContainer'
 import Text from '@/_lib/components/Text'
-import Spacing from '@/_lib/components/Spacing'
 import useQuiz from '@/hooks/useQuiz'
 import { Colors } from '@/_lib/constants/theme'
 import redCheck from '@/assets/redCheck.svg'
 import Button from '@/_lib/components/Button'
 import Stack from '@/_lib/components/Stack'
+import Spacing from '@/_lib/components/Spacing'
 
 export default function NotePage() {
   const router = useRouter()
@@ -24,6 +24,7 @@ export default function NotePage() {
   if (isNotStart) {
     return (
       <PageContainer title="오답노트">
+        <Spacing />
         <Stack>
           <Text size="xlg">✋ 풀고 있는 퀴즈가 없어요!</Text>
           <Button onClick={() => router.push('/')}>홈으로</Button>
@@ -35,6 +36,7 @@ export default function NotePage() {
   if (isSolving || !isClear) {
     return (
       <PageContainer title="오답노트">
+        <Spacing />
         <Stack>
           <Text size="xlg">✋ 아직 퀴즈를 다 풀지 않았어요!</Text>
           <Button size="lg" onClick={() => router.push('/solve')}>
@@ -50,7 +52,7 @@ export default function NotePage() {
 
   return (
     <PageContainer title="오답노트">
-      <div style={{ marginTop: '20px' }}>
+      <>
         <Title>
           <Text size="xlg" bold>
             📝 오답 노트
@@ -80,7 +82,7 @@ export default function NotePage() {
             </Quiz>
           ))}
         </QuizContainer>
-      </div>
+      </>
     </PageContainer>
   )
 }

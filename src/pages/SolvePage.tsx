@@ -3,7 +3,6 @@ import { useQuizDispatch, QuizActions } from '@/store/quizSlice'
 import { useRouter } from './routing'
 import { PageContainer } from './PageContainer'
 import ProgressBar from '@/_lib/components/ProgressBar'
-import Spacing from '@/_lib/components/Spacing'
 import QuizSelect from '@/components/QuizSelect'
 import useQuiz from '@/hooks/useQuiz'
 import Button from '@/_lib/components/Button'
@@ -58,15 +57,14 @@ export default function SolvePage() {
 
   return (
     <PageContainer title="퀴즈">
-      <div style={{ marginTop: '50px' }}>
+      <>
         <ProgressBar percentage={progressBarPercent} />
-        <Spacing level={2} />
         <QuizSelect
           currentQuiz={currentQuiz!}
           isLastQuiz={quizListLength === currentQuizNumber}
           handleSolve={handleSolve}
         />
-      </div>
+      </>
     </PageContainer>
   )
 }

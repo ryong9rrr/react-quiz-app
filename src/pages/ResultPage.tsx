@@ -19,6 +19,7 @@ import { Bar } from 'react-chartjs-2'
 import { convertTimeDiff } from '@/_lib/utils'
 import Button from '@/_lib/components/Button'
 import Stack from '@/_lib/components/Stack'
+import Spacing from '@/_lib/components/Spacing'
 
 export default function ResultPage() {
   const router = useRouter()
@@ -34,6 +35,7 @@ export default function ResultPage() {
   if (isNotStart) {
     return (
       <PageContainer title="결과">
+        <Spacing />
         <Stack>
           <Text size="xlg">✋ 풀고 있는 퀴즈가 없어요!</Text>
           <Button onClick={() => router.push('/')}>홈으로</Button>
@@ -45,6 +47,7 @@ export default function ResultPage() {
   if (isSolving || !isClear) {
     return (
       <PageContainer title="결과">
+        <Spacing />
         <Stack>
           <Text size="xlg">✋ 아직 퀴즈를 다 풀지 않았어요!</Text>
           <Button size="lg" onClick={() => router.push('/solve')}>
@@ -60,38 +63,43 @@ export default function ResultPage() {
 
   return (
     <PageContainer title="결과">
-      <div style={{ marginTop: '20px' }}>
-        <Text size="xlg" bold style={{ marginBottom: '20px' }}>
-          👏 수고하셨습니다.
-        </Text>
-        <Text size="lg" bold style={{ padding: '16px 0' }}>
-          🔎 퀴즈 결과
-        </Text>
-        <ResultContainer>
-          <li>
-            틀린 문제 : {inCorrectCount}개
-            <Button size="xsm" onClick={() => router.push('/note')} style={{ padding: '4px' }}>
-              📝 오답 노트
-            </Button>
-          </li>
-          <li>맞은 문제 : {correctCount}개</li>
-          <li>
-            소요 시간 : {convertTimeDiff(endTime - startTime).hour} 시간{' '}
-            {convertTimeDiff(endTime - startTime).min} 분 {convertTimeDiff(endTime - startTime).sec}
-            초
-          </li>
-        </ResultContainer>
-
-        <ResultChart correctCount={correctCount} inCorrectCount={inCorrectCount} />
-        <ButtonContainer>
-          <Button onClick={handleClickNewStart}>새로운 퀴즈 풀기</Button>
-        </ButtonContainer>
-      </div>
+      <Text size="xlg" bold>
+        👏 수고하셨습니다.
+      </Text>
+      <Spacing level={3} />
+      <Text size="lg" bold>
+        🔎 퀴즈 결과
+      </Text>
+      <Spacing level={1} />
+      <ResultContainer>
+        <li>
+          틀린 문제 : {inCorrectCount}개
+          <Button size="sm" onClick={() => router.push('/note')}>
+            📝 오답 노트
+          </Button>
+        </li>
+        <li>맞은 문제 : {correctCount}개</li>
+        <li>
+          소요 시간 : {convertTimeDiff(endTime - startTime).hour} 시간{' '}
+          {convertTimeDiff(endTime - startTime).min} 분 {convertTimeDiff(endTime - startTime).sec}초
+        </li>
+      </ResultContainer>
+      <Spacing level={2} />
+      <Text size="lg" bold>
+        📊 차트
+      </Text>
+      <Spacing level={1} />
+      <ResultChart correctCount={correctCount} inCorrectCount={inCorrectCount} />
+      <Spacing level={3} />
+      <ButtonContainer>
+        <Button full onClick={handleClickNewStart}>
+          새로운 퀴즈 풀기
+        </Button>
+      </ButtonContainer>
     </PageContainer>
   )
 }
 const ButtonContainer = styled.div`
-  margin-top: 20px;
   display: flex;
   justify-content: center;
   gap: 10px;
@@ -124,14 +132,9 @@ function ResultChart({ inCorrectCount, correctCount }: ResultChartProps) {
   const data = makeData(inCorrectCount, correctCount)
 
   return (
-    <>
-      <Text size="lg" bold style={{ padding: '16px 0' }}>
-        📊 차트
-      </Text>
-      <ChartContainer>
-        <Bar data={data} />
-      </ChartContainer>
-    </>
+    <ChartContainer>
+      <Bar data={data} />
+    </ChartContainer>
   )
 }
 
