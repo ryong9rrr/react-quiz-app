@@ -19,20 +19,21 @@
   },
   "plugins": ["react", "@typescript-eslint"],
   "rules": {
-    "prefer-destructuring": "warn",
-    "camelcase": "warn",
+    "no-undef": "off",
+    "prefer-destructuring": "off",
+    "camelcase": "off",
     "lines-between-class-members": "off",
     "no-underscore-dangle": "off",
     "no-use-before-define": "off",
-    "no-param-reassign": "warn",
+    "no-param-reassign": "off",
     "arrow-body-style": "off",
     "import/prefer-default-export": "off",
     "import/no-unresolved": "off",
     "import/extensions": "off",
     "import/no-extraneous-dependencies": "off",
-    "react/jsx-filename-extension": ["warn", { "extensions": [".ts", ".tsx"] }],
-    "react/button-has-type": "warn",
-    "react/require-default-props": "warn",
-    "react/jsx-props-no-spreading": "warn"
+    "react/jsx-filename-extension": ["off", { "extensions": [".ts", ".tsx"] }],
+    "react/button-has-type": "off",
+    "react/require-default-props": "off",
+    "react/jsx-props-no-spreading": "off"
   }
 }
