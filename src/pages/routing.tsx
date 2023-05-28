@@ -15,4 +15,4 @@ export function useRouter() {
   }, [navigate])
 }
 
-export type RoutePath = '/' | '/quiz' | '/result' | '/check-note'
+export type RoutePath = '/' | '/solve' | '/result' | '/note'

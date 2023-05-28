@@ -17,7 +17,7 @@ export default function QuizResult({ correctCount, inCorrectCount, timeDiff }: P
   const { hour, min, sec } = convertTimeDiff(timeDiff)
 
   const handleClickCheckNote = () => {
-    router.push('/check-note')
+    router.push('/note')
   }
 
   return (

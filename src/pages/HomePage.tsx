@@ -26,7 +26,7 @@ export default function HomePage() {
           startTime: Date.now(),
         }),
       )
-      router.push('/quiz')
+      router.push('/solve')
     } catch (e) {
       setError(true)
     }
@@ -63,7 +63,7 @@ export default function HomePage() {
     return (
       <PageContainer title="홈">
         <Atom.Prompt text="이미 풀고 있는 퀴즈가 있습니다." style={{ marginTop: '150px' }}>
-          <Atom.Button size="lg" onClick={() => router.push('/quiz')}>
+          <Atom.Button size="lg" onClick={() => router.push('/solve')}>
             이어서 풀기
           </Atom.Button>
           <Atom.Button size="lg" onClick={() => dispatch(QuizActions.initialize())}>

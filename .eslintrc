@@ -21,7 +21,6 @@
   "rules": {
     "no-undef": "off",
     "prefer-destructuring": "off",
-    "camelcase": "off",
     "lines-between-class-members": "off",
     "no-underscore-dangle": "off",
     "no-use-before-define": "off",

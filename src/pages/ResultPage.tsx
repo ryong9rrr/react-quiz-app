@@ -33,7 +33,7 @@ export default function ResultPage() {
     return (
       <PageContainer title="결과">
         <Atom.Prompt text="✋ 아직 퀴즈를 다 풀지 않았어요!" style={{ marginTop: '150px' }}>
-          <Atom.Button size="lg" onClick={() => router.push('/quiz')}>
+          <Atom.Button size="lg" onClick={() => router.push('/solve')}>
             이어서 풀기
           </Atom.Button>
           <Atom.Button size="lg" onClick={handleClickNewStart}>
