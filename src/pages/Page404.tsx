@@ -6,7 +6,7 @@ import { useRouter } from './routing'
 
 const NotFound = React.lazy(() => import('@/components/NotFound'))
 
-export default function NotFoundPage() {
+export default function Page404() {
   const router = useRouter()
 
   return (

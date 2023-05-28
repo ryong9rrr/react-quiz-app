@@ -7,7 +7,7 @@ import { useQuiz } from '@/hooks'
 import { useRouter } from './routing'
 import { PageContainer } from './PageContainer'
 
-export default function QuizPage() {
+export default function SolvePage() {
   const router = useRouter()
   const dispatch = useQuizDispatch()
   const { isClear, isSolving, progressBarPercent, currentQuizNumber, quizListLength, currentQuiz } =

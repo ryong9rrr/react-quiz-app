@@ -7,7 +7,7 @@ import * as Quiz from '@/components/quiz'
 import { useRouter } from './routing'
 import { PageContainer } from './PageContainer'
 
-export default function CheckNotePage() {
+export default function NotePage() {
   const router = useRouter()
   const dispatch = useQuizDispatch()
   const { isClear, isSolving, isNotStart, solvedQuizList } = useQuiz()
