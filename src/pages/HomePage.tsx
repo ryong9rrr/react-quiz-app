@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { useQuizDispatch, QuizActions, useQuizSelector } from '@/store/quiz/slice'
 import * as QuizApi from '@/apis/quiz'
 import { useRouter } from './routing'
@@ -9,31 +9,23 @@ import Button from '@/_lib/components/Button'
 import Stack from '@/_lib/components/Stack'
 import Spacing from '@/_lib/components/Spacing'
 import quizHelper from '@/store/quiz/helper'
+import usePromise from '@/_lib/hooks/usePromise'
 
 export default function HomePage() {
-  const [loading, setLoading] = useState(false)
-  const [error, setError] = useState(false)
   const router = useRouter()
   const dispatch = useQuizDispatch()
   const { isClear, isSolving } = quizHelper(useQuizSelector())
+  const { status, trigger: handleClickStart } = usePromise(async () => {
+    const { results } = await QuizApi.generateQuiz()
+    dispatch(
+      QuizActions.startQuiz({
+        servedQuizList: results,
+      }),
+    )
+    router.push('/solve')
+  })
 
-  const handleClickStart = async () => {
-    setLoading(true)
-    try {
-      const { results } = await QuizApi.generateQuiz()
-      dispatch(
-        QuizActions.startQuiz({
-          servedQuizList: results,
-        }),
-      )
-      router.push('/solve')
-    } catch (e) {
-      setError(true)
-    }
-    setLoading(false)
-  }
-
-  if (loading) {
+  if (status === 'loading') {
     return (
       <PageContainer title="홈">
         <Spacing />
@@ -45,7 +37,7 @@ export default function HomePage() {
     )
   }
 
-  if (error) {
+  if (status === 'error') {
     return (
       <PageContainer title="홈">
         <Spacing />

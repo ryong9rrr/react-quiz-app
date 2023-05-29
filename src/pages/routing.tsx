@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react'
+import { useMemo } from 'react'
 import { NavigateOptions, useNavigate } from 'react-router-dom'
 
 export function useRouter() {
