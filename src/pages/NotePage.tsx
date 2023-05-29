@@ -1,19 +1,19 @@
 import React from 'react'
-import { useQuizDispatch, QuizActions, useQuizSelector } from '@/store/quiz/slice'
-import { useRouter } from './routing'
-import { PageContainer } from './PageContainer'
 import Text from '@/_lib/components/Text'
 import Button from '@/_lib/components/Button'
 import Stack from '@/_lib/components/Stack'
 import Spacing from '@/_lib/components/Spacing'
 import Row from '@/_lib/components/Row'
+import { useQuizDispatch, QuizActions } from '@/store/quiz/slice'
+import { useRouter } from './routing'
+import { PageContainer } from './PageContainer'
 import SolvedQuizList from '@/components/SolvedQuizList'
-import quizHelper from '@/store/quiz/helper'
+import useQuiz from '@/store/quiz/hook'
 
 export default function NotePage() {
   const router = useRouter()
   const dispatch = useQuizDispatch()
-  const { isClear, isSolving, isNotStart, solvedQuizList } = quizHelper(useQuizSelector())
+  const { isClear, isSolving, isNotStart, solvedQuizList } = useQuiz()
 
   const handleClickNewStart = () => {
     dispatch(QuizActions.initialize())
@@ -51,16 +51,14 @@ export default function NotePage() {
 
   return (
     <PageContainer title="오답노트">
-      <>
-        <Row alignItems="center" gap="15px">
-          <Text size="xlg" bold>
-            📝 오답 노트
-          </Text>
-          <Button onClick={() => router.push('/result')}>📊 차트 보기</Button>
-        </Row>
-        <Spacing level={2} />
-        <SolvedQuizList solvedQuizList={solvedQuizList} />
-      </>
+      <Row alignItems="center" gap="15px">
+        <Text size="xlg" bold>
+          📝 오답 노트
+        </Text>
+        <Button onClick={() => router.push('/result')}>📊 차트 보기</Button>
+      </Row>
+      <Spacing level={2} />
+      <SolvedQuizList solvedQuizList={solvedQuizList} />
     </PageContainer>
   )
 }

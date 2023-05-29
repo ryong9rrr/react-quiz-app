@@ -1,10 +1,10 @@
 import React from 'react'
 import Lottie from 'lottie-react'
-import { data } from '@/_lib/constants/notFoundLottie'
-import { useRouter } from './routing'
 import Text from '@/_lib/components/Text'
 import Button from '@/_lib/components/Button'
 import Stack from '@/_lib/components/Stack'
+import { data } from '@/_lib/constants/notFoundLottie'
+import { useRouter } from './routing'
 
 export default function Page404() {
   const router = useRouter()

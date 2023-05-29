@@ -30,7 +30,9 @@ export default function SolvedQuizList({ solvedQuizList }: { solvedQuizList: Qui
     </Stack>
   )
 }
+
 const StyledQuiz = styled.li`
+  width: 100%;
   position: relative;
   box-sizing: border-box;
   border: 2px solid ${Colors.green200};

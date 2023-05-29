@@ -1,21 +1,19 @@
 import React from 'react'
-import { useQuizDispatch, QuizActions, useQuizSelector } from '@/store/quiz/slice'
-import { useRouter } from './routing'
-import { PageContainer } from './PageContainer'
 import Text from '@/_lib/components/Text'
 import Button from '@/_lib/components/Button'
 import Stack from '@/_lib/components/Stack'
 import Spacing from '@/_lib/components/Spacing'
 import Chart from '@/_lib/components/Chart'
 import { Colors } from '@/_lib/constants/theme'
-import quizHelper from '@/store/quiz/helper'
+import { useQuizDispatch, QuizActions } from '@/store/quiz/slice'
+import { useRouter } from './routing'
+import { PageContainer } from './PageContainer'
+import useQuiz from '@/store/quiz/hook'
 
 export default function ResultPage() {
   const router = useRouter()
   const dispatch = useQuizDispatch()
-  const { isClear, isSolving, isNotStart, correctCount, inCorrectCount } = quizHelper(
-    useQuizSelector(),
-  )
+  const { isClear, isSolving, isNotStart, correctCount, inCorrectCount } = useQuiz()
 
   const handleClickNewStart = () => {
     dispatch(QuizActions.initialize())

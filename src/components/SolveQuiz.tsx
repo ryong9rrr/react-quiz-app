@@ -1,7 +1,7 @@
 import React, { ChangeEvent, useEffect, useMemo, useState } from 'react'
 import styled from '@emotion/styled'
 import { Colors } from '@/_lib/constants/theme'
-import Text from '../_lib/components/Text'
+import Text from '@/_lib/components/Text'
 import Button from '@/_lib/components/Button'
 import Stack from '@/_lib/components/Stack'
 import Spacing from '@/_lib/components/Spacing'

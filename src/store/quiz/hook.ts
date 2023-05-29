@@ -1,7 +1,7 @@
-import { QuizState } from '@/store/quiz/slice'
+import { useQuizSelector } from './slice'
 
-export default function quizHelper(quizState: QuizState) {
-  const { quizList, currentQuiz, solvedQuizList } = quizState
+export default function useQuiz() {
+  const { quizList, currentQuiz, solvedQuizList } = useQuizSelector()
 
   const isClear = quizList.length !== 0 && !currentQuiz && quizList.length === solvedQuizList.length
 
@@ -23,6 +23,10 @@ export default function quizHelper(quizState: QuizState) {
   const inCorrectCount = solvedQuizList.length - correctCount
 
   return {
+    quizList,
+    currentQuiz,
+    solvedQuizList,
+
     isClear,
     isSolving,
     progressBarPercent,
@@ -31,6 +35,5 @@ export default function quizHelper(quizState: QuizState) {
     isNotStart,
     correctCount,
     inCorrectCount,
-    ...quizState,
   }
 }
