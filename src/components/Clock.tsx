@@ -7,9 +7,9 @@ export default function Clock() {
   return (
     <StyledClock className="clock">
       <div className="digits">
-        <span className="minutes">{minutes < 10 ? `0${minutes}` : minutes}</span>
+        <span className="minutes">{pad(minutes)}</span>
         <span>:</span>
-        <span className="seconds">{seconds < 10 ? `0${seconds}` : seconds}</span>
+        <span className="seconds">{pad(seconds)}</span>
       </div>
     </StyledClock>
   )
@@ -46,7 +46,7 @@ export function quit() {
   const timer = Math.floor((Date.now() - start) / 1000)
   const seconds = timer % 60
   const minutes = Math.floor(timer / 60)
-  sessionStorage.setItem('quiz-time', `${minutes}:${seconds}`)
+  sessionStorage.setItem('quiz-time', `${pad(minutes)}:${pad(seconds)}`)
   sessionStorage.removeItem('quiz-start-time')
 }
 
@@ -63,4 +63,8 @@ function getStartTime() {
     return now
   }
   return Number(startTime)
+}
+
+function pad(timer: number) {
+  return timer < 10 ? `0${timer}` : `${timer}`
 }
