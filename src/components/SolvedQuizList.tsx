@@ -1,17 +1,19 @@
 import React, { CSSProperties } from 'react'
 import styled from '@emotion/styled'
 import { Colors } from '@/_lib/constants/theme'
-import { SolvedQuiz as SolvedQuizType } from '@/models/Quiz'
 import Text from '@/_lib/components/Text'
 import Stack from '@/_lib/components/Stack'
 import redCheck from '@/assets/redCheck.svg'
+import { Quiz } from '@/store/types'
 
-export default function SolvedQuizList({ solvedQuizList }: { solvedQuizList: SolvedQuizType[] }) {
+export default function SolvedQuizList({ solvedQuizList }: { solvedQuizList: Quiz[] }) {
   return (
     <Stack borderColor="none" padding="0">
       {solvedQuizList.map((quiz) => (
         <StyledQuiz key={quiz.number}>
-          {!quiz.isCorrect && <RedCheck position="absolute" top="-8px" />}
+          {quiz.correct_answer !== quiz.selectedAnswerByUser && (
+            <RedCheck position="absolute" top="-8px" />
+          )}
           <Text size="lg">
             {quiz.number}번. {quiz.question}
           </Text>

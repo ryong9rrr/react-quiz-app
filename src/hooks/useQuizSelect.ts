@@ -1,6 +1,5 @@
 import { ChangeEvent, useEffect, useMemo, useState } from 'react'
-
-import { Quiz } from '@/models/Quiz'
+import { Quiz } from '@/store/types'
 
 export default function useQuizSelect(currentQuiz: Quiz) {
   const [selectedAnswer, setSelectedAnswer] = useState<string | null>(null)

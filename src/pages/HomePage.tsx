@@ -20,10 +20,10 @@ export default function HomePage() {
   const handleClickStart = async () => {
     setLoading(true)
     try {
-      const quizResponse = await QuizApi.generateQuiz()
+      const { results } = await QuizApi.generateQuiz()
       dispatch(
         QuizActions.startQuiz({
-          quizResponse,
+          servedQuizList: results,
           startTime: Date.now(),
         }),
       )

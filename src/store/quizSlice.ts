@@ -1,16 +1,15 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { useDispatch, useSelector } from 'react-redux'
-
 import { AppDispatch, RootState } from '.'
-import { Quiz, SolvedQuiz, modelBuilder } from '@/models/Quiz'
-import { GenerateQuizResponse } from '@/apis/quiz'
+import { Quiz } from './types'
+import { ServedQuiz } from '@/apis/quiz'
 
 export interface QuizState {
   startTime: number
   endTime: number
   quizList: Quiz[]
   currentQuiz: Quiz | null
-  solvedQuizList: SolvedQuiz[]
+  solvedQuizList: Quiz[]
 }
 
 const initialState: QuizState = {
@@ -31,12 +30,16 @@ export const quizSlice = createSlice({
     startQuiz: (
       state,
       action: PayloadAction<{
-        quizResponse: GenerateQuizResponse
+        servedQuizList: ServedQuiz[]
         startTime: number
       }>,
     ) => {
-      const { quizResponse, startTime } = action.payload
-      const quizList = modelBuilder.toQuizList(quizResponse)
+      const { servedQuizList, startTime } = action.payload
+      const quizList: Quiz[] = servedQuizList.map((quiz, index) => ({
+        ...quiz,
+        number: index + 1,
+        selectedAnswerByUser: '',
+      }))
       return { ...state, quizList, currentQuiz: quizList[0], startTime, endTime: startTime }
     },
     // 1. 예외처리) 현재 퀴즈나 퀴즈데이터가 없다면 에러를 반환한다.
@@ -58,19 +61,14 @@ export const quizSlice = createSlice({
       if (state.solvedQuizList.length >= state.quizList.length) {
         throw new Error('퀴즈를 모두 풀어서 액션을 실행할 수 없습니다.')
       }
-
-      const nextQuizNumber = state.currentQuiz.number + 1
-      const nextQuiz = state.quizList.find((quiz) => quiz.number === nextQuizNumber)
-
-      const solvedQuizList = [
-        ...state.solvedQuizList,
-        modelBuilder.toSolvedQuiz(state.currentQuiz, selectedAnswerByUser),
-      ]
-
+      const currentQuiz = { ...state.currentQuiz }
+      currentQuiz.selectedAnswerByUser = selectedAnswerByUser
+      const solvedQuizList = [...state.solvedQuizList]
+      solvedQuizList.push(currentQuiz)
+      const nextQuiz = state.quizList.find((quiz) => quiz.number === currentQuiz.number + 1)
       if (!nextQuiz) {
         return { ...state, currentQuiz: null, solvedQuizList, endTime }
       }
-
       return {
         ...state,
         currentQuiz: nextQuiz,

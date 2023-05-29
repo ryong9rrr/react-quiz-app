@@ -1,6 +1,6 @@
 import { request } from '@/apis'
 
-export const generateQuiz = async () => {
+export const generateQuiz = async (): Promise<{ results: ServedQuiz[] }> => {
   try {
     const response = await request.get('', {
       params: { amount: 10, type: 'multiple' },
@@ -10,22 +10,17 @@ export const generateQuiz = async () => {
       throw new Error('data is nothing. Probably url is wrong.')
     }
 
-    return response.data as GenerateQuizResponse
+    return response.data
   } catch (error) {
     throw new Error('fetch error')
   }
 }
 
-export type QuizResponseType = {
+export type ServedQuiz = {
   category: string
   type: 'multiple'
   difficulty: 'easy' | 'medium' | 'hard'
   question: string
   correct_answer: string
   incorrect_answers: [string, string, string]
-}
-
-export type GenerateQuizResponse = {
-  response_code: number
-  results: QuizResponseType[]
 }

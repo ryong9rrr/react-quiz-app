@@ -1,12 +1,12 @@
 import React from 'react'
 import styled from '@emotion/styled'
-import { Quiz } from '@/models/Quiz'
 import { Colors } from '@/_lib/constants/theme'
 import Text from '../_lib/components/Text'
 import useQuizSelect from '@/hooks/useQuizSelect'
 import Button from '@/_lib/components/Button'
 import Stack from '@/_lib/components/Stack'
 import Spacing from '@/_lib/components/Spacing'
+import { Quiz } from '@/store/types'
 
 interface Props {
   currentQuiz: Quiz
