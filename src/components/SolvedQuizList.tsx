@@ -31,7 +31,7 @@ export default function SolvedQuizList({ solvedQuizList }: { solvedQuizList: Sol
 const StyledQuiz = styled.li`
   position: relative;
   box-sizing: border-box;
-  border: 1px solid ${Colors.green300};
+  border: 2px solid ${Colors.green200};
   border-radius: 8px;
   padding: 16px;
   display: flex;
