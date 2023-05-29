@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { useDispatch, useSelector } from 'react-redux'
-import { AppDispatch, RootState } from '.'
+import { AppDispatch, RootState } from '..'
 import { Quiz } from './types'
 import { ServedQuiz } from '@/apis/quiz'
 

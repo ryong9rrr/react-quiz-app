@@ -1,5 +1,5 @@
 import React from 'react'
-import { useQuizDispatch, QuizActions, useQuizSelector } from '@/store/quizSlice'
+import { useQuizDispatch, QuizActions, useQuizSelector } from '@/store/quiz/slice'
 import { useRouter } from './routing'
 import { PageContainer } from './PageContainer'
 import Text from '@/_lib/components/Text'
@@ -9,7 +9,7 @@ import Stack from '@/_lib/components/Stack'
 import Spacing from '@/_lib/components/Spacing'
 import Chart from '@/_lib/components/Chart'
 import { Colors } from '@/_lib/constants/theme'
-import quizHelper from '@/store/quizHelper'
+import quizHelper from '@/store/quiz/helper'
 
 export default function ResultPage() {
   const router = useRouter()

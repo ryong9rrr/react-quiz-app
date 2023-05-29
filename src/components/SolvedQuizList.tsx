@@ -4,7 +4,7 @@ import { Colors } from '@/_lib/constants/theme'
 import Text from '@/_lib/components/Text'
 import Stack from '@/_lib/components/Stack'
 import redCheck from '@/assets/redCheck.svg'
-import { Quiz } from '@/store/types'
+import { Quiz } from '@/store/quiz/types'
 
 export default function SolvedQuizList({ solvedQuizList }: { solvedQuizList: Quiz[] }) {
   return (

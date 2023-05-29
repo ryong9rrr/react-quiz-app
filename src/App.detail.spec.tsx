@@ -1,6 +1,6 @@
 import React, { ReactNode } from 'react'
 import { Link, MemoryRouter } from 'react-router-dom'
-import { render, screen, waitFor } from '@testing-library/react'
+import { render, screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { rest } from 'msw'
 import { vi } from 'vitest'
@@ -8,6 +8,12 @@ import { server } from './_lib/server/node'
 import App from './App'
 import * as Api from './apis/quiz'
 import { RoutePath } from './pages/routing'
+import { store } from './store'
+import { QuizActions } from './store/quiz/slice'
+
+beforeEach(() => {
+  store.dispatch(QuizActions.initialize())
+})
 
 describe('App detail', () => {
   test('1-1. 홈페이지: 문제를 불러오다가 오류가 발생하면 사용자에게 재시도를 요청한다.', async () => {

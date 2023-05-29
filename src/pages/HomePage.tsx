@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { useQuizDispatch, QuizActions, useQuizSelector } from '@/store/quizSlice'
+import { useQuizDispatch, QuizActions, useQuizSelector } from '@/store/quiz/slice'
 import * as QuizApi from '@/apis/quiz'
 import { useRouter } from './routing'
 import { PageContainer } from './PageContainer'
@@ -8,7 +8,7 @@ import Text from '@/_lib/components/Text'
 import Button from '@/_lib/components/Button'
 import Stack from '@/_lib/components/Stack'
 import Spacing from '@/_lib/components/Spacing'
-import quizHelper from '@/store/quizHelper'
+import quizHelper from '@/store/quiz/helper'
 
 export default function HomePage() {
   const [loading, setLoading] = useState(false)

@@ -1,4 +1,4 @@
-import { QuizState } from '@/store/quizSlice'
+import { QuizState } from '@/store/quiz/slice'
 
 export default function quizHelper(quizState: QuizState) {
   const { quizList, currentQuiz, solvedQuizList } = quizState

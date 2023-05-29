@@ -1,8 +1,7 @@
 import { combineReducers, configureStore } from '@reduxjs/toolkit'
 import { persistReducer, FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER } from 'redux-persist'
 import storageSession from 'redux-persist/lib/storage/session'
-
-import { quizReducer } from './quizSlice'
+import { quizReducer } from './quiz/slice'
 
 const persistConfig = {
   key: 'react-quiz-app',

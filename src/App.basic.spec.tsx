@@ -5,6 +5,12 @@ import userEvent from '@testing-library/user-event'
 import { vi } from 'vitest'
 import App from './App'
 import * as Api from './apis/quiz'
+import { store } from './store'
+import { QuizActions } from './store/quiz/slice'
+
+beforeEach(() => {
+  store.dispatch(QuizActions.initialize())
+})
 
 describe('App basic', () => {
   test('홈페이지 - 퀴즈시작 클릭 - 로딩 - 문제풀이 페이지 진입 - 문제 풀이 - 결과 페이지 진입 - 오답 노트 페이지 진입', async () => {

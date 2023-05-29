@@ -6,7 +6,7 @@ import useQuizSelect from '@/hooks/useQuizSelect'
 import Button from '@/_lib/components/Button'
 import Stack from '@/_lib/components/Stack'
 import Spacing from '@/_lib/components/Spacing'
-import { Quiz } from '@/store/types'
+import { Quiz } from '@/store/quiz/types'
 
 interface Props {
   currentQuiz: Quiz
