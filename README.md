@@ -6,6 +6,8 @@
 
 ## Demo
 
+> msw(브라우저) 개발환경에서 실행한 모습입니다.
+
 <img src="docs/demo.gif" />
 
 ## Skills
@@ -26,15 +28,18 @@
 2. yarn install
 ```
 
-- `jest`로 App 통합 테스트 환경
+#### msw 개발 환경에서 실행하기
 
-  1. `yarn msw`
-  2. `yarn test`
+1. `yarn msw`
+2. `yarn dev:msw`
 
-- msw 개발 환경
+#### 일반 개발 환경에서 실행하기
 
-  1. `yarn msw` (이미 실행했다면 실행하지 않아도 됩니다.)
-  2. `yarn dev:msw`
+1. `yarn dev`
 
-- 일반 개발 환경
-  1. `yarn dev`
+#### App 테스트 실행하기
+
+1. `yarn msw`
+2. `yarn test`
+
+<img src="./docs/test.gif" />
