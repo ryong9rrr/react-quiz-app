@@ -1,8 +1,7 @@
-import React from 'react'
+import React, { ChangeEvent, useEffect, useMemo, useState } from 'react'
 import styled from '@emotion/styled'
 import { Colors } from '@/_lib/constants/theme'
 import Text from '../_lib/components/Text'
-import useQuizSelect from '@/hooks/useQuizSelect'
 import Button from '@/_lib/components/Button'
 import Stack from '@/_lib/components/Stack'
 import Spacing from '@/_lib/components/Spacing'
@@ -14,9 +13,8 @@ interface Props {
   handleSolve?: (userAnswer: string) => void
 }
 
-export default function QuizSelect({ currentQuiz, isLastQuiz, handleSolve }: Props) {
-  const { options, selectedAnswer, handleSelect, isCorrect } = useQuizSelect(currentQuiz)
-
+export default function SolveQuiz({ currentQuiz, isLastQuiz, handleSolve }: Props) {
+  const { selectedAnswer, isCorrect, options, handleSelect } = useSolve(currentQuiz)
   return (
     <>
       {selectedAnswer && (
@@ -56,6 +54,27 @@ export default function QuizSelect({ currentQuiz, isLastQuiz, handleSolve }: Pro
       )}
     </>
   )
+}
+
+function useSolve(currentQuiz: Quiz) {
+  const [selectedAnswer, setSelectedAnswer] = useState<string>('')
+  const { incorrect_answers, correct_answer } = currentQuiz
+  const isCorrect = selectedAnswer === correct_answer
+
+  const options = useMemo(
+    () => [...incorrect_answers, correct_answer].sort(),
+    [incorrect_answers, correct_answer],
+  )
+
+  const handleSelect = (e: ChangeEvent<HTMLInputElement>) => {
+    setSelectedAnswer(e.target.value)
+  }
+
+  useEffect(() => {
+    setSelectedAnswer('')
+  }, [currentQuiz])
+
+  return { options, selectedAnswer, handleSelect, isCorrect }
 }
 
 const ResultMessage = styled.div<{ borderColor: string }>`

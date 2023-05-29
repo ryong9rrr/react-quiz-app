@@ -24,7 +24,6 @@ export default function HomePage() {
       dispatch(
         QuizActions.startQuiz({
           servedQuizList: results,
-          startTime: Date.now(),
         }),
       )
       router.push('/solve')

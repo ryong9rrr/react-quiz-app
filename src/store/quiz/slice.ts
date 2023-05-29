@@ -3,18 +3,15 @@ import { useDispatch, useSelector } from 'react-redux'
 import { AppDispatch, RootState } from '..'
 import { Quiz } from './types'
 import { ServedQuiz } from '@/apis/quiz'
+import { decodeString } from '@/_lib/utils'
 
 export interface QuizState {
-  startTime: number
-  endTime: number
   quizList: Quiz[]
   currentQuiz: Quiz | null
   solvedQuizList: Quiz[]
 }
 
 const initialState: QuizState = {
-  startTime: 0,
-  endTime: 0,
   quizList: [],
   currentQuiz: null,
   solvedQuizList: [],
@@ -31,16 +28,20 @@ export const quizSlice = createSlice({
       state,
       action: PayloadAction<{
         servedQuizList: ServedQuiz[]
-        startTime: number
       }>,
     ) => {
-      const { servedQuizList, startTime } = action.payload
+      const { servedQuizList } = action.payload
       const quizList: Quiz[] = servedQuizList.map((quiz, index) => ({
         ...quiz,
         number: index + 1,
         selectedAnswerByUser: '',
+        question: decodeString(quiz.question),
+        correct_answers: decodeString(quiz.correct_answer),
+        incorrect_answers: quiz.incorrect_answers.map((incorrectAnswer) =>
+          decodeString(incorrectAnswer),
+        ) as [string, string, string],
       }))
-      return { ...state, quizList, currentQuiz: quizList[0], startTime, endTime: startTime }
+      return { ...state, quizList, currentQuiz: quizList[0] }
     },
     // 1. 예외처리) 현재 퀴즈나 퀴즈데이터가 없다면 에러를 반환한다.
     // 2. 예외처리) 현재 풀고 있는 퀴즈의 번호가 퀴즈리스트의 길이보다 크다면 퀴즈를 다 푼 것이다.
@@ -49,10 +50,9 @@ export const quizSlice = createSlice({
       state,
       action: PayloadAction<{
         selectedAnswerByUser: string
-        endTime: number
       }>,
     ) => {
-      const { selectedAnswerByUser, endTime } = action.payload
+      const { selectedAnswerByUser } = action.payload
 
       if (state.quizList.length === 0 || state.currentQuiz === null) {
         throw new Error('불러온 퀴즈가 없거나 풀고 있는 퀴즈가 없어서 액션을 실행할 수 없습니다.')
@@ -67,13 +67,12 @@ export const quizSlice = createSlice({
       solvedQuizList.push(currentQuiz)
       const nextQuiz = state.quizList.find((quiz) => quiz.number === currentQuiz.number + 1)
       if (!nextQuiz) {
-        return { ...state, currentQuiz: null, solvedQuizList, endTime }
+        return { ...state, currentQuiz: null, solvedQuizList }
       }
       return {
         ...state,
         currentQuiz: nextQuiz,
         solvedQuizList,
-        endTime,
       }
     },
   },

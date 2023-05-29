@@ -3,16 +3,16 @@ import { useQuizDispatch, QuizActions, useQuizSelector } from '@/store/quiz/slic
 import { useRouter } from './routing'
 import { PageContainer } from './PageContainer'
 import ProgressBar from '@/_lib/components/ProgressBar'
-import QuizSelect from '@/components/QuizSelect'
 import Button from '@/_lib/components/Button'
 import Stack from '@/_lib/components/Stack'
 import Text from '@/_lib/components/Text'
 import quizHelper from '@/store/quiz/helper'
+import SolveQuiz from '@/components/SolveQuiz'
 
 export default function SolvePage() {
   const router = useRouter()
   const dispatch = useQuizDispatch()
-  const { isClear, isSolving, progressBarPercent, currentQuizNumber, quizListLength, currentQuiz } =
+  const { isClear, progressBarPercent, currentQuizNumber, quizListLength, currentQuiz } =
     quizHelper(useQuizSelector())
 
   const handleClickNewStart = () => {
@@ -24,7 +24,6 @@ export default function SolvePage() {
     dispatch(
       QuizActions.solveQuiz({
         selectedAnswerByUser: userAnswer,
-        endTime: Date.now(),
       }),
     )
     if (currentQuizNumber === quizListLength) {
@@ -44,7 +43,7 @@ export default function SolvePage() {
     )
   }
 
-  if (!isSolving) {
+  if (!currentQuiz) {
     return (
       <PageContainer title="퀴즈">
         <Stack>
@@ -59,8 +58,8 @@ export default function SolvePage() {
     <PageContainer title="퀴즈">
       <>
         <ProgressBar percentage={progressBarPercent} />
-        <QuizSelect
-          currentQuiz={currentQuiz!}
+        <SolveQuiz
+          currentQuiz={currentQuiz}
           isLastQuiz={quizListLength === currentQuizNumber}
           handleSolve={handleSolve}
         />

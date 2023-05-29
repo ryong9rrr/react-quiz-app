@@ -3,7 +3,6 @@ import { useQuizDispatch, QuizActions, useQuizSelector } from '@/store/quiz/slic
 import { useRouter } from './routing'
 import { PageContainer } from './PageContainer'
 import Text from '@/_lib/components/Text'
-import { convertTimeDiff } from '@/_lib/utils'
 import Button from '@/_lib/components/Button'
 import Stack from '@/_lib/components/Stack'
 import Spacing from '@/_lib/components/Spacing'
@@ -14,8 +13,9 @@ import quizHelper from '@/store/quiz/helper'
 export default function ResultPage() {
   const router = useRouter()
   const dispatch = useQuizDispatch()
-  const { isClear, isSolving, isNotStart, correctCount, inCorrectCount, startTime, endTime } =
-    quizHelper(useQuizSelector())
+  const { isClear, isSolving, isNotStart, correctCount, inCorrectCount } = quizHelper(
+    useQuizSelector(),
+  )
 
   const handleClickNewStart = () => {
     dispatch(QuizActions.initialize())
@@ -67,10 +67,7 @@ export default function ResultPage() {
         </Button>
         <Text>틀린 문제 : {inCorrectCount}개</Text>
         <Text>맞은 문제 : {correctCount}개</Text>
-        <Text>
-          소요 시간 : {convertTimeDiff(endTime - startTime).hour} 시간{' '}
-          {convertTimeDiff(endTime - startTime).min} 분 {convertTimeDiff(endTime - startTime).sec}초
-        </Text>
+        <Text>소요 시간 : 0시간 0분 0초</Text>
       </Stack>
       <Spacing level={2} />
       <Text size="lg" bold>
