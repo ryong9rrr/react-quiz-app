@@ -1,11 +1,5 @@
 import React from 'react'
 import styled from '@emotion/styled'
-import { useQuizDispatch, QuizActions } from '@/store/quizSlice'
-import { useRouter } from './routing'
-import { PageContainer } from './PageContainer'
-import Text from '@/_lib/components/Text'
-import useQuiz from '@/hooks/useQuiz'
-import { Colors } from '@/_lib/constants/theme'
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -16,6 +10,12 @@ import {
   Legend,
 } from 'chart.js'
 import { Bar } from 'react-chartjs-2'
+import { useQuizDispatch, QuizActions } from '@/store/quizSlice'
+import { useRouter } from './routing'
+import { PageContainer } from './PageContainer'
+import Text from '@/_lib/components/Text'
+import useQuiz from '@/hooks/useQuiz'
+import { Colors } from '@/_lib/constants/theme'
 import { convertTimeDiff } from '@/_lib/utils'
 import Button from '@/_lib/components/Button'
 import Stack from '@/_lib/components/Stack'
