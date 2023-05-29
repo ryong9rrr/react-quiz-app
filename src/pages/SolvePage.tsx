@@ -1,19 +1,19 @@
 import React from 'react'
-import { useQuizDispatch, QuizActions } from '@/store/quizSlice'
+import { useQuizDispatch, QuizActions, useQuizSelector } from '@/store/quizSlice'
 import { useRouter } from './routing'
 import { PageContainer } from './PageContainer'
 import ProgressBar from '@/_lib/components/ProgressBar'
 import QuizSelect from '@/components/QuizSelect'
-import useQuiz from '@/hooks/useQuiz'
 import Button from '@/_lib/components/Button'
 import Stack from '@/_lib/components/Stack'
 import Text from '@/_lib/components/Text'
+import quizHelper from '@/store/quizHelper'
 
 export default function SolvePage() {
   const router = useRouter()
   const dispatch = useQuizDispatch()
   const { isClear, isSolving, progressBarPercent, currentQuizNumber, quizListLength, currentQuiz } =
-    useQuiz()
+    quizHelper(useQuizSelector())
 
   const handleClickNewStart = () => {
     dispatch(QuizActions.initialize())

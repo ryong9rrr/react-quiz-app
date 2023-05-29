@@ -1,21 +1,21 @@
 import React from 'react'
-import { useQuizDispatch, QuizActions } from '@/store/quizSlice'
+import { useQuizDispatch, QuizActions, useQuizSelector } from '@/store/quizSlice'
 import { useRouter } from './routing'
 import { PageContainer } from './PageContainer'
 import Text from '@/_lib/components/Text'
-import useQuiz from '@/hooks/useQuiz'
 import { convertTimeDiff } from '@/_lib/utils'
 import Button from '@/_lib/components/Button'
 import Stack from '@/_lib/components/Stack'
 import Spacing from '@/_lib/components/Spacing'
 import Chart from '@/_lib/components/Chart'
 import { Colors } from '@/_lib/constants/theme'
+import quizHelper from '@/store/quizHelper'
 
 export default function ResultPage() {
   const router = useRouter()
   const dispatch = useQuizDispatch()
   const { isClear, isSolving, isNotStart, correctCount, inCorrectCount, startTime, endTime } =
-    useQuiz()
+    quizHelper(useQuizSelector())
 
   const handleClickNewStart = () => {
     dispatch(QuizActions.initialize())

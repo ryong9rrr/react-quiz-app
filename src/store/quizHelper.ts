@@ -1,7 +1,6 @@
-import { useQuizSelector } from '@/store/quizSlice'
+import { QuizState } from '@/store/quizSlice'
 
-export default function useQuiz() {
-  const quizState = useQuizSelector()
+export default function quizHelper(quizState: QuizState) {
   const { quizList, currentQuiz, solvedQuizList } = quizState
 
   const isClear = quizList.length !== 0 && !currentQuiz && quizList.length === solvedQuizList.length

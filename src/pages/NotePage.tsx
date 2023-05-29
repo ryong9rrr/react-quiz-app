@@ -1,19 +1,19 @@
 import React from 'react'
-import { useQuizDispatch, QuizActions } from '@/store/quizSlice'
+import { useQuizDispatch, QuizActions, useQuizSelector } from '@/store/quizSlice'
 import { useRouter } from './routing'
 import { PageContainer } from './PageContainer'
 import Text from '@/_lib/components/Text'
-import useQuiz from '@/hooks/useQuiz'
 import Button from '@/_lib/components/Button'
 import Stack from '@/_lib/components/Stack'
 import Spacing from '@/_lib/components/Spacing'
 import Row from '@/_lib/components/Row'
 import SolvedQuizList from '@/components/SolvedQuizList'
+import quizHelper from '@/store/quizHelper'
 
 export default function NotePage() {
   const router = useRouter()
   const dispatch = useQuizDispatch()
-  const { isClear, isSolving, isNotStart, solvedQuizList } = useQuiz()
+  const { isClear, isSolving, isNotStart, solvedQuizList } = quizHelper(useQuizSelector())
 
   const handleClickNewStart = () => {
     dispatch(QuizActions.initialize())

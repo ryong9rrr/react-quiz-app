@@ -1,21 +1,21 @@
 import React, { useState } from 'react'
-import { useQuizDispatch, QuizActions } from '@/store/quizSlice'
+import { useQuizDispatch, QuizActions, useQuizSelector } from '@/store/quizSlice'
 import * as QuizApi from '@/apis/quiz'
 import { useRouter } from './routing'
 import { PageContainer } from './PageContainer'
 import Loading from '@/_lib/components/Loading'
 import Text from '@/_lib/components/Text'
-import useQuiz from '@/hooks/useQuiz'
 import Button from '@/_lib/components/Button'
 import Stack from '@/_lib/components/Stack'
 import Spacing from '@/_lib/components/Spacing'
+import quizHelper from '@/store/quizHelper'
 
 export default function HomePage() {
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState(false)
   const router = useRouter()
   const dispatch = useQuizDispatch()
-  const { isClear, isSolving } = useQuiz()
+  const { isClear, isSolving } = quizHelper(useQuizSelector())
 
   const handleClickStart = async () => {
     setLoading(true)
