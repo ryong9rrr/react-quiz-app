@@ -9,3 +9,9 @@ export const decodeString = (str: string) => {
   })
   return unescape(str)
 }
+
+export const makeClock = (entiredSeconds: number) => {
+  const seconds = entiredSeconds % 60
+  const minutes = Math.floor(entiredSeconds / 60)
+  return { minutes, seconds }
+}

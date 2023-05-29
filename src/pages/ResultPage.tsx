@@ -9,6 +9,7 @@ import { useQuizDispatch, QuizActions } from '@/store/quiz/slice'
 import { useRouter } from './routing'
 import { PageContainer } from './PageContainer'
 import useQuiz from '@/store/quiz/hook'
+import { getTime } from '@/components/Clock'
 
 export default function ResultPage() {
   const router = useRouter()
@@ -65,7 +66,7 @@ export default function ResultPage() {
         </Button>
         <Text>틀린 문제 : {inCorrectCount}개</Text>
         <Text>맞은 문제 : {correctCount}개</Text>
-        <Text>소요 시간 : 0시간 0분 0초</Text>
+        <Text>소요 시간 : {getTime()}</Text>
       </Stack>
       <Spacing level={2} />
       <Text size="lg" bold>

@@ -8,6 +8,7 @@ import { useRouter } from './routing'
 import { PageContainer } from './PageContainer'
 import SolveQuiz from '@/components/SolveQuiz'
 import useQuiz from '@/store/quiz/hook'
+import Clock, { quit } from '@/components/Clock'
 
 export default function SolvePage() {
   const router = useRouter()
@@ -27,6 +28,7 @@ export default function SolvePage() {
     )
     if (currentQuizNumber === quizListLength) {
       router.push('/result')
+      quit()
     }
   }
 
@@ -55,14 +57,13 @@ export default function SolvePage() {
 
   return (
     <PageContainer title="퀴즈">
-      <>
-        <ProgressBar percentage={progressBarPercent} />
-        <SolveQuiz
-          currentQuiz={currentQuiz}
-          isLastQuiz={quizListLength === currentQuizNumber}
-          handleSolve={handleSolve}
-        />
-      </>
+      <Clock />
+      <ProgressBar percentage={progressBarPercent} />
+      <SolveQuiz
+        currentQuiz={currentQuiz}
+        isLastQuiz={quizListLength === currentQuizNumber}
+        handleSolve={handleSolve}
+      />
     </PageContainer>
   )
 }
