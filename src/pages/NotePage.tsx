@@ -8,7 +8,7 @@ import { useQuizDispatch, QuizActions } from '@/store/quiz/slice'
 import { useRouter } from './routing'
 import { PageContainer } from './PageContainer'
 import SolvedQuizList from '@/components/SolvedQuizList'
-import useQuiz from '@/store/quiz/hook'
+import useQuiz from '@/store/quiz/useQuiz'
 
 export default function NotePage() {
   const router = useRouter()

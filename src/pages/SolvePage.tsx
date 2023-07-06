@@ -7,7 +7,7 @@ import { useQuizDispatch, QuizActions } from '@/store/quiz/slice'
 import { useRouter } from './routing'
 import { PageContainer } from './PageContainer'
 import SolveQuiz from '@/components/SolveQuiz'
-import useQuiz from '@/store/quiz/hook'
+import useQuiz from '@/store/quiz/useQuiz'
 import Clock, { quit } from '@/components/Clock'
 
 export default function SolvePage() {

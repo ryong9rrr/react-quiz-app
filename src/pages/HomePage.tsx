@@ -9,7 +9,7 @@ import { useQuizDispatch, QuizActions } from '@/store/quiz/slice'
 import * as QuizApi from '@/apis/quiz'
 import { useRouter } from './routing'
 import { PageContainer } from './PageContainer'
-import useQuiz from '@/store/quiz/hook'
+import useQuiz from '@/store/quiz/useQuiz'
 
 export default function HomePage() {
   const router = useRouter()

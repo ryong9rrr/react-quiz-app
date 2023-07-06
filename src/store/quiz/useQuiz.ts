@@ -1,8 +1,10 @@
-import { useQuizSelector } from './slice'
+import { QuizState, useQuizSelector } from './slice'
 
 export default function useQuiz() {
-  const { quizList, currentQuiz, solvedQuizList } = useQuizSelector()
+  return manufactureQuiz(useQuizSelector())
+}
 
+function manufactureQuiz({ quizList, currentQuiz, solvedQuizList }: QuizState) {
   const isClear = quizList.length !== 0 && !currentQuiz && quizList.length === solvedQuizList.length
 
   const isSolving = quizList.length !== 0 && currentQuiz && !isClear

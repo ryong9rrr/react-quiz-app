@@ -1,4 +1,4 @@
-import { request } from '@/apis'
+import { request } from './builder'
 
 export const generateQuiz = async (): Promise<{ results: ServedQuiz[] }> => {
   try {

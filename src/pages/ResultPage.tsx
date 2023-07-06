@@ -8,7 +8,7 @@ import { Colors } from '@/_lib/constants/theme'
 import { useQuizDispatch, QuizActions } from '@/store/quiz/slice'
 import { useRouter } from './routing'
 import { PageContainer } from './PageContainer'
-import useQuiz from '@/store/quiz/hook'
+import useQuiz from '@/store/quiz/useQuiz'
 import { getTime } from '@/components/Clock'
 
 export default function ResultPage() {
