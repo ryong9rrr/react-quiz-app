@@ -4,49 +4,22 @@ import Text from '@/_lib/components/Text'
 import Button from '@/_lib/components/Button'
 import Stack from '@/_lib/components/Stack'
 import Spacing from '@/_lib/components/Spacing'
-import usePromise from '@/_lib/hooks/usePromise'
-import { useQuizDispatch, QuizActions } from '@/store/quiz/slice'
-import * as QuizApi from '@/apis/quiz'
 import { useRouter } from './routing'
 import { PageContainer } from './PageContainer'
-import useQuiz from '@/store/quiz/useQuiz'
+import useQuiz, { QuizStatus } from '@/hooks/useQuiz'
 
 export default function HomePage() {
   const router = useRouter()
-  const dispatch = useQuizDispatch()
-  const { isClear, isSolving } = useQuiz()
-
-  const { status, trigger: handleClickStart } = usePromise(async () => {
-    const { results } = await QuizApi.generateQuiz()
-    dispatch(
-      QuizActions.startQuiz({
-        servedQuizList: results,
-      }),
-    )
-    router.push('/solve')
-  })
-
-  const getCondition = (): ConditionalComponentCondition => {
-    if (status === 'loading' || status === 'error') {
-      return status
-    }
-    if (isSolving) {
-      return 'isSolving'
-    }
-    if (isClear) {
-      return 'isClear'
-    }
-    return 'idle'
-  }
+  const { quizStatus, onStartQuiz, onInitializeQuiz } = useQuiz()
 
   return (
     <PageContainer title="홈">
       <Spacing />
       <Stack>
         <RenderComponentWithCondition
-          condition={getCondition()}
-          onStart={handleClickStart}
-          onInitializeQuiz={() => dispatch(QuizActions.initialize())}
+          condition={quizStatus}
+          onStart={onStartQuiz}
+          onInitializeQuiz={onInitializeQuiz}
           onRouteSolvePage={() => router.push('/solve')}
           onRouteResultPage={() => router.push('/result')}
         />
@@ -55,10 +28,8 @@ export default function HomePage() {
   )
 }
 
-type ConditionalComponentCondition = 'loading' | 'error' | 'isSolving' | 'isClear' | 'idle'
-
 interface RenderComponentWithConditionProps {
-  condition: ConditionalComponentCondition
+  condition: QuizStatus
   onStart: () => void
   onInitializeQuiz: () => void
   onRouteSolvePage: () => void
@@ -104,7 +75,7 @@ function RenderComponentWithCondition({
         </>
       )
     }
-    case 'isClear': {
+    case 'isFinish': {
       return (
         <>
           <Text size="xlg">퀴즈를 모두 풀었어요.</Text>
