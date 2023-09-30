@@ -6,6 +6,7 @@ import Button from '@/_lib/components/Button'
 import Stack from '@/_lib/components/Stack'
 import Spacing from '@/_lib/components/Spacing'
 import { Quiz } from '@/store/quiz/types'
+import OneSelectRadio from '@/_lib/components/OneSelectRadio'
 
 interface Props {
   currentQuiz: Quiz
@@ -31,21 +32,13 @@ export default function SolveQuiz({ currentQuiz, isLastQuiz, handleSolve }: Prop
           {currentQuiz.number}번 문제
         </Text>
         <Text size="lg">{currentQuiz.question}</Text>
-        <Radio>
-          {options.map((option) => (
-            <li key={option}>
-              <input
-                name="quiz"
-                type="radio"
-                id={option}
-                value={option}
-                checked={selectedAnswer === option}
-                onChange={handleSelect}
-              />
-              <label htmlFor={option}>{option}</label>
-            </li>
-          ))}
-        </Radio>
+        <OneSelectRadio
+          options={options}
+          name="quiz"
+          type="radio"
+          selectedValue={selectedAnswer}
+          onSelect={handleSelect}
+        />
       </Stack>
       {!!selectedAnswer && (
         <Button full onClick={handleSolve && (() => handleSolve(selectedAnswer))}>
@@ -86,14 +79,4 @@ const ResultMessage = styled.div<{ borderColor: string }>`
   display: flex;
   justify-content: center;
   align-items: center;
-`
-
-const Radio = styled.ul`
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
-  input,
-  label {
-    cursor: pointer;
-  }
 `
