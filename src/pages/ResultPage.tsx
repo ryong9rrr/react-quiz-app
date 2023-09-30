@@ -8,7 +8,7 @@ import { Colors } from '@/_lib/constants/theme'
 import { useRouter } from './routing'
 import { PageContainer } from './PageContainer'
 import useQuiz, { QuizStatus } from '@/hooks/useQuiz'
-import { getTime } from '@/components/Clock'
+import { getTime } from '@/hooks/useClock'
 
 export default function ResultPage() {
   const router = useRouter()

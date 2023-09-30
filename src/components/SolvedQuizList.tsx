@@ -31,6 +31,40 @@ export default function SolvedQuizList({ solvedQuizList }: { solvedQuizList: Qui
   )
 }
 
+function RedCheck({
+  position = 'relative',
+  top = '0',
+  left = '0',
+}: {
+  position?: CSSProperties['position']
+  top?: CSSProperties['top']
+  left?: CSSProperties['left']
+}) {
+  return (
+    <StyledRedCheck position={position} top={top} left={left}>
+      <img src={redCheck} alt="check" />
+    </StyledRedCheck>
+  )
+}
+
+function Option({
+  text,
+  selectedAnswerByUser,
+  correctAnswer,
+}: {
+  text: string
+  selectedAnswerByUser: string
+  correctAnswer: string
+}) {
+  if (text === selectedAnswerByUser && selectedAnswerByUser !== correctAnswer) {
+    return <StyledOption style={{ border: '2px solid tomato' }}>{text} ❌</StyledOption>
+  }
+  if (text === correctAnswer) {
+    return <StyledOption>{text} ✅</StyledOption>
+  }
+  return <StyledOption>{text}</StyledOption>
+}
+
 const StyledQuiz = styled.li`
   width: 100%;
   position: relative;
@@ -54,41 +88,9 @@ const StyledRedCheck = styled.div<{
   top: ${({ top }) => top};
   left: ${({ left }) => left};
 `
-function RedCheck({
-  position = 'relative',
-  top = '0',
-  left = '0',
-}: {
-  position?: CSSProperties['position']
-  top?: CSSProperties['top']
-  left?: CSSProperties['left']
-}) {
-  return (
-    <StyledRedCheck position={position} top={top} left={left}>
-      <img src={redCheck} alt="check" />
-    </StyledRedCheck>
-  )
-}
 
 const StyledOption = styled.div`
   padding: 10px;
   border: 1px solid gray;
   border-radius: 4px;
 `
-function Option({
-  text,
-  selectedAnswerByUser,
-  correctAnswer,
-}: {
-  text: string
-  selectedAnswerByUser: string
-  correctAnswer: string
-}) {
-  if (text === selectedAnswerByUser && selectedAnswerByUser !== correctAnswer) {
-    return <StyledOption style={{ border: '2px solid tomato' }}>{text} ❌</StyledOption>
-  }
-  if (text === correctAnswer) {
-    return <StyledOption>{text} ✅</StyledOption>
-  }
-  return <StyledOption>{text}</StyledOption>
-}

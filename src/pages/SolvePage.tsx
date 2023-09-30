@@ -4,12 +4,10 @@ import Button from '@/_lib/components/Button'
 import Stack from '@/_lib/components/Stack'
 import Text from '@/_lib/components/Text'
 import Spacing from '@/_lib/components/Spacing'
-//
 import useQuiz, { QuizStatus } from '@/hooks/useQuiz'
 import Clock from '@/components/Clock'
 import SolveQuiz from '@/components/SolveQuiz'
 import { Quiz } from '@/store/quiz/types'
-//
 import { useRouter } from './routing'
 import { PageContainer } from './PageContainer'
 

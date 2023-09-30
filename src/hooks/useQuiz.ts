@@ -1,9 +1,8 @@
 import { useEffect, useState } from 'react'
-//
 import { useRouter } from '@/pages/routing'
 import * as QuizApi from '@/apis/quiz'
 import { useQuizDispatch, useQuizSelector, QuizActions } from '@/store/quiz/slice'
-import { quit } from '@/components/Clock'
+import { quit } from './useClock'
 
 export type QuizStatus = 'loading' | 'error' | 'isSolving' | 'isFinish' | 'idle'
 
