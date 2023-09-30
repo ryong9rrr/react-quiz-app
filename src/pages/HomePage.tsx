@@ -26,75 +26,106 @@ export default function HomePage() {
     router.push('/solve')
   })
 
-  if (status === 'loading') {
-    return (
-      <PageContainer title="홈">
-        <Spacing />
-        <Stack>
-          <Loading />
-          <Text>퀴즈를 생성 중입니다...</Text>
-        </Stack>
-      </PageContainer>
-    )
-  }
-
-  if (status === 'error') {
-    return (
-      <PageContainer title="홈">
-        <Spacing />
-        <Stack>
-          <Text size="xlg">퀴즈를 불러오는데 실패했습니다. 다시 시도해주세요.</Text>
-          <Button size="lg" onClick={handleClickStart}>
-            다시 시도
-          </Button>
-        </Stack>
-      </PageContainer>
-    )
-  }
-
-  if (isSolving) {
-    return (
-      <PageContainer title="홈">
-        <Spacing />
-        <Stack>
-          <Text size="xlg">이미 풀고 있는 퀴즈가 있습니다.</Text>
-          <Button size="lg" onClick={() => router.push('/solve')}>
-            이어서 풀기
-          </Button>
-          <Button size="lg" onClick={() => dispatch(QuizActions.initialize())}>
-            새로운 퀴즈 풀기
-          </Button>
-        </Stack>
-      </PageContainer>
-    )
-  }
-
-  if (isClear) {
-    return (
-      <PageContainer title="홈">
-        <Spacing />
-        <Stack>
-          <Text size="xlg">퀴즈를 모두 풀었어요.</Text>
-          <Button size="lg" onClick={() => router.push('/result')}>
-            결과 보기
-          </Button>
-          <Button size="lg" onClick={() => dispatch(QuizActions.initialize())}>
-            새로운 퀴즈 풀기
-          </Button>
-        </Stack>
-      </PageContainer>
-    )
+  const getCondition = (): ConditionalComponentCondition => {
+    if (status === 'loading' || status === 'error') {
+      return status
+    }
+    if (isSolving) {
+      return 'isSolving'
+    }
+    if (isClear) {
+      return 'isClear'
+    }
+    return 'idle'
   }
 
   return (
     <PageContainer title="홈">
       <Spacing />
       <Stack>
-        <Text size="xlg">퀴즈를 시작해볼까요?</Text>
-        <Button size="lg" onClick={handleClickStart}>
-          START
-        </Button>
+        <RenderComponentWithCondition
+          condition={getCondition()}
+          onStart={handleClickStart}
+          onInitializeQuiz={() => dispatch(QuizActions.initialize())}
+          onRouteSolvePage={() => router.push('/solve')}
+          onRouteResultPage={() => router.push('/result')}
+        />
       </Stack>
     </PageContainer>
   )
+}
+
+type ConditionalComponentCondition = 'loading' | 'error' | 'isSolving' | 'isClear' | 'idle'
+
+interface RenderComponentWithConditionProps {
+  condition: ConditionalComponentCondition
+  onStart: () => void
+  onInitializeQuiz: () => void
+  onRouteSolvePage: () => void
+  onRouteResultPage: () => void
+}
+
+function RenderComponentWithCondition({
+  condition,
+  onStart,
+  onInitializeQuiz,
+  onRouteSolvePage,
+  onRouteResultPage,
+}: RenderComponentWithConditionProps) {
+  switch (condition) {
+    case 'loading': {
+      return (
+        <>
+          <Loading />
+          <Text>퀴즈를 생성 중입니다...</Text>
+        </>
+      )
+    }
+    case 'error': {
+      return (
+        <>
+          <Text size="xlg">퀴즈를 불러오는데 실패했습니다. 다시 시도해주세요.</Text>
+          <Button size="lg" onClick={onStart}>
+            다시 시도
+          </Button>
+        </>
+      )
+    }
+    case 'isSolving': {
+      return (
+        <>
+          <Text size="xlg">이미 풀고 있는 퀴즈가 있습니다.</Text>
+          <Button size="lg" onClick={onRouteSolvePage}>
+            이어서 풀기
+          </Button>
+          <Button size="lg" onClick={onInitializeQuiz}>
+            새로운 퀴즈 풀기
+          </Button>
+        </>
+      )
+    }
+    case 'isClear': {
+      return (
+        <>
+          <Text size="xlg">퀴즈를 모두 풀었어요.</Text>
+          <Button size="lg" onClick={onRouteResultPage}>
+            결과 보기
+          </Button>
+          <Button size="lg" onClick={onInitializeQuiz}>
+            새로운 퀴즈 풀기
+          </Button>
+        </>
+      )
+    }
+    default: {
+      return (
+        <>
+          <Text size="xlg">퀴즈를 시작해볼까요?</Text>
+          <Button size="lg" onClick={onStart}>
+            START
+          </Button>
+        </>
+      )
+    }
+  }
 }
