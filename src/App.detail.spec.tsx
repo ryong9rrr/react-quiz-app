@@ -67,6 +67,57 @@ describe('App detail', () => {
     screen.getByRole('button', { name: /새로운 퀴즈 풀기/ })
   })
 
+  test('1-4. 홈페이지: 문제를 풀다가 강제진입 - 이어서 풀기 클릭 - 문제 풀이 페이지 진입', async () => {
+    const spyOnGetQuizList = vi.spyOn(Api, 'generateQuiz')
+    renderWithRouter(<App />, { route: '/' })
+    screen.getByText(/퀴즈를 시작해볼까요?/)
+    await userEvent.click(screen.getByText(/START/))
+    expect(spyOnGetQuizList).toHaveBeenCalled()
+    await screen.findByText(/퀴즈를 생성 중입니다.../)
+    await screen.findByText(/1번 문제/)
+    await screen.findByText(/Elbow/)
+
+    // 1번 문제를 풀고 2번 문제 진입
+    await userEvent.click(await screen.findByText(/Elbow/))
+    await screen.findByText(/정답입니다!/)
+    await userEvent.click(await screen.findByRole('button', { name: /다음 문제/ }))
+    await screen.findByText(/2번 문제/)
+
+    // URL을 통해 홈으로 강제진입
+    await userEvent.click(screen.getByTestId('HOME_LINK'))
+    await screen.findByText(/이미 풀고 있는 퀴즈가 있습니다./)
+    screen.getByRole('button', { name: /이어서 풀기/ })
+    screen.getByRole('button', { name: /새로운 퀴즈 풀기/ })
+
+    // 이어서 풀기 클릭
+    await userEvent.click(screen.getByText(/이어서 풀기/))
+
+    // 문제 풀이 페이지 재 진입
+    await screen.findByText(/2번 문제/)
+  })
+
+  test('1-5. 홈페이지: 문제를 풀다가 강제진입 - 새로운 퀴즈를 풀기 클릭 - 홈 진입', async () => {
+    const spyOnGetQuizList = vi.spyOn(Api, 'generateQuiz')
+    renderWithRouter(<App />, { route: '/' })
+    screen.getByText(/퀴즈를 시작해볼까요?/)
+    await userEvent.click(screen.getByText(/START/))
+    expect(spyOnGetQuizList).toHaveBeenCalled()
+    await screen.findByText(/퀴즈를 생성 중입니다.../)
+    await screen.findByText(/1번 문제/)
+    await screen.findByText(/Elbow/)
+
+    await userEvent.click(screen.getByTestId('HOME_LINK'))
+    await screen.findByText(/이미 풀고 있는 퀴즈가 있습니다./)
+    screen.getByRole('button', { name: /이어서 풀기/ })
+    screen.getByRole('button', { name: /새로운 퀴즈 풀기/ })
+
+    // 새로운 퀴즈 풀기 클릭
+    await userEvent.click(screen.getByText(/새로운 퀴즈 풀기/))
+
+    // 문제 페이지 진입
+    await screen.findByText(/퀴즈를 시작해볼까요?/)
+  })
+
   test('2-1. 문제풀이 페이지: 문제를 생성하지 않았는데 강제진입하면 홈으로 유도한다.', async () => {
     renderWithRouter(<App />, { route: '/solve' })
     await screen.findByText(/풀고 있는 퀴즈가 없어요!/)
