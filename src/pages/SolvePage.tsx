@@ -81,11 +81,13 @@ function RenderComponentWithCondition({
         <>
           <Clock />
           <ProgressBar percentage={progressBarPercent} />
-          <SolveQuiz
-            currentQuiz={currentQuiz!}
-            isLastQuiz={quizList.length === currentQuizNumber}
-            handleSolve={(userAnswer) => onSolveQuiz(userAnswer)}
-          />
+          {currentQuiz && (
+            <SolveQuiz
+              currentQuiz={currentQuiz}
+              isLastQuiz={quizList.length === currentQuizNumber}
+              handleSolve={(userAnswer) => onSolveQuiz(userAnswer)}
+            />
+          )}
         </>
       )
     }

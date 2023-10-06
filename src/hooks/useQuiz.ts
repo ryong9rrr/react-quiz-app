@@ -41,6 +41,7 @@ export default function useQuiz() {
 
   const onInitializeQuiz = () => {
     dispatch(QuizActions.initialize())
+    setQuizStatus('idle')
     router.push('/')
   }
 
@@ -50,10 +51,15 @@ export default function useQuiz() {
         selectedAnswerByUser: userAnswer,
       }),
     )
+
     if (currentQuizNumber === quizList.length) {
+      setQuizStatus('isFinish')
       router.push('/result')
       quit()
+      return
     }
+
+    setQuizStatus('isSolving')
   }
 
   useEffect(() => {
